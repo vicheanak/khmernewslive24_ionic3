@@ -1,0 +1,10 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "ionic"]
+	url = git@git.ionicjs.com:emailisden/khmernewslive24_ionic3.git
+	fetch = +refs/heads/*:refs/remotes/ionic/*
