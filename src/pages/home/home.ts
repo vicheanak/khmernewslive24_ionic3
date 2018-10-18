@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, AlertController } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { Pro } from '@ionic/pro';
@@ -17,10 +17,19 @@ export class HomePage {
 	public downloadProgress = 0;
 
 
-	constructor(private platform: Platform, private socialSharing: SocialSharing, public navCtrl: NavController) {
+	constructor(private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
 
 	}
 
+
+	async presentAlert(msg) {
+		const alert = await this.alertController.create({
+			message: msg,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
 
 	async checkChannel() {
 		try {
@@ -68,6 +77,7 @@ export class HomePage {
         	const update = await Pro.deploy.checkForUpdate();
 
         	if (update.available){
+        		this.presentAlert("Downloading...");
         		this.downloadProgress = 0;
 
         		await Pro.deploy.downloadUpdate((progress) => {
@@ -75,6 +85,9 @@ export class HomePage {
         		})
         		await Pro.deploy.extractUpdate();
         		await Pro.deploy.reloadApp();
+        	}
+        	else{
+        		this.presentAlert("No Update!");
         	}
         } catch (err) {
         	// We encountered an error.

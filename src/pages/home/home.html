@@ -15,7 +15,7 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
-  
+
   <button ion-button primary (click)="shareOnFacebook()">Share</button>
 
   <h3>Settings</h3>
@@ -23,7 +23,7 @@
   <p>I'm connected to the {{ deployChannel }}.</p>
 
   <p>Download Progress {{ downloadProgress }} / 100</p>
-
+  <button ion-button primary (click)="performManualUpdate()">Manual Update</button>
   <ion-item>
     <ion-label>Opt in to Beta Features</ion-label>
     <ion-toggle [(ngModel)]="isBeta" (ionChange)="toggleBeta()"></ion-toggle>
