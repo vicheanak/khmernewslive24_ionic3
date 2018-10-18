@@ -83,7 +83,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-x-socialsharing" spec="5.4.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.2.0" />
-    <engine name="android" spec="7.1.1" />
     <plugin name="cordova-plugin-ionic" spec="5.2.5">
         <variable name="APP_ID" value="4dc427d8" />
         <variable name="CHANNEL_NAME" value="Master" />
@@ -92,4 +91,5 @@
         <variable name="MAX_STORE" value="2" />
         <variable name="MIN_BACKGROUND_DURATION" value="30" />
     </plugin>
+    <engine name="android" spec="7.1.1" />
 </widget>
