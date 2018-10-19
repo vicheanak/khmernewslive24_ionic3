@@ -13,6 +13,15 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { Pro } from '@ionic/pro';
 
+import { Firebase } from '@ionic-native/firebase';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { FcmProvider } from '../providers/fcm/fcm';
+
+const firebase = {
+ // your firebase web config
+}
 
 Pro.init('4dc427d8', {
   appVersion: '0.0.1'
@@ -47,6 +56,8 @@ export class MyErrorHandler implements ErrorHandler {
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebase), 
+    AngularFirestoreModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -60,7 +71,10 @@ export class MyErrorHandler implements ErrorHandler {
     SplashScreen,
     SocialSharing,
     IonicErrorHandler,
-    {provide: ErrorHandler, useClass: MyErrorHandler}
+    Firebase,
+    FcmProvider,
+    {provide: ErrorHandler, useClass: MyErrorHandler},
+    FcmProvider
   ]
 })
 export class AppModule {}

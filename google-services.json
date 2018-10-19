@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1092261335543",
+    "firebase_url": "https://khmer-news-live-24.firebaseio.com",
+    "project_id": "khmer-news-live-24",
+    "storage_bucket": "khmer-news-live-24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092261335543:android:93e284a798f32779",
+        "android_client_info": {
+          "package_name": "com.khmernewslive24.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092261335543-h2uk76cb9av08loe8ddf4pj6k725cqiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNljaKvGVMl1SLtSp5fN4y1bIb0732HwU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
