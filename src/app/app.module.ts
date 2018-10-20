@@ -30,6 +30,8 @@ import {TimeAgoPipe} from 'time-ago-pipe';
 
 import {PipesModule} from '../pipes/pipes.module';
 
+import { AdMobPro } from '@ionic-native/admob-pro';
+import { AppRate } from '@ionic-native/app-rate';
 
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
@@ -97,6 +99,8 @@ export class MyErrorHandler implements ErrorHandler {
     Firebase,
     FcmProvider,
     Device,
+    AdMobPro,
+    AppRate,
     {provide: ErrorHandler, useClass: MyErrorHandler},
     WpProvider
   ]
