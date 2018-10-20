@@ -16,6 +16,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ContactPage {
 
+	public logo = "../assets/imgs/logo.png";
+	
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

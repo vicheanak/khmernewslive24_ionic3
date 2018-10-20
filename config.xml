@@ -96,9 +96,9 @@
     <allow-navigation href="http://192.168.8.100:8100" sessionid="1c4bcf0e" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-support-google-services" spec="1.1.0" />
-    <engine name="android" spec="7.1.1" />
     <plugin name="cordova-plugin-apprate" spec="1.4.0" />
     <plugin name="cordova-plugin-admobpro" spec="2.32.6">
         <variable name="PLAY_SERVICES_VERSION" value="16.0.0" />
     </plugin>
+    <engine name="android" spec="7.1.1" />
 </widget>

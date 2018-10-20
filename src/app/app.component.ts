@@ -89,7 +89,8 @@ export class MyApp {
       this.splashScreen.hide();
 
       this.showAds();
-      this.rate();
+      
+      this.rateAuto();
       
     });
   }
@@ -129,7 +130,7 @@ export class MyApp {
     await alert.present();
   }
 
-  async rate(){
+  async rateAuto(){
     try {
         this.appRate.preferences = {
           displayAppName: 'Khmer News Live 24',
@@ -158,13 +159,42 @@ export class MyApp {
           }
         };
 
-        // Opens the rating immediately no matter what preferences you set
-        
-        this.appRate.promptForRating(true);
+        this.appRate.promptForRating(false);
     } catch(err){
         
         Pro.monitoring.exception(err);
     }
+  }
+
+  async rate(){
+    this.appRate.preferences = {
+      displayAppName: 'Khmer News Live 24',
+      usesUntilPrompt: 2,
+      simpleMode: true,
+      promptAgainForEachNewVersion: false,
+      useCustomRateDialog: true,
+      storeAppURL: {
+        ios: '1216856883',
+        android: 'market://details?id=com.khmernewslive24.app'
+      },
+      customLocale: {
+        title: 'ចូលចិត្ត %@ ដែរទេ?',
+        message: 'បើអ្នកចូលចិត្ត, ជួយដាក់ពិន្ទុផងបានទេ? សូមអរគុណទុកជាមុន!',
+        cancelButtonLabel: 'ទេ',
+        laterButtonLabel: 'លើកក្រោយ',
+        rateButtonLabel: 'បាន'
+      },
+      callbacks: {
+        onRateDialogShow: function(callback){
+          
+        },
+        onButtonClicked: function(buttonIndex){
+          
+        }
+      }
+    };
+
+    this.appRate.promptForRating(true);
   }
   
 

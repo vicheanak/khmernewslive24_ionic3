@@ -6,13 +6,43 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>contact</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>ទំនាក់ទំនង</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+	<ion-card>
+		<img class="logo" [src]="logo" />
+		<ion-card-content>
+			<ion-card-title text-center>
+				KHMER NEWS LIVE 24
+			</ion-card-title>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		
+		<ion-card-content>
+			
+			<ion-list>
+				<ion-item>
+					<ion-icon name="logo-chrome" color="danger" item-start></ion-icon>
+					www.khmernewslive24.com
+				</ion-item>
+				<ion-item>
+					<ion-icon name="logo-facebook" color="primary" item-start></ion-icon>
+					fb.com/khmernewslive24
+				</ion-item>
+				<ion-item>
+					<ion-icon name="call" color="secondary" item-start></ion-icon>
+					096 926 9999
+				</ion-item>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
 
 </ion-content>
