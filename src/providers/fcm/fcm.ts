@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Firebase } from '@ionic-native/firebase';
-import { Platform } from 'ionic-angular';
+import { Platform, AlertController } from 'ionic-angular';
 import { AngularFirestore } from 'angularfire2/firestore';
 
+
+import { Device } from '@ionic-native/device';
 /*
   Generated class for the FcmProvider provider.
 
@@ -16,7 +18,9 @@ export class FcmProvider {
   constructor(
     public firebaseNative: Firebase,
     public afs: AngularFirestore,
-    private platform: Platform
+    private platform: Platform,
+    private device: Device,
+    private alertCtrl: AlertController
   ) {}
 
    // Get permission from the user
@@ -37,16 +41,31 @@ export class FcmProvider {
 
   }
 
+  async presentAlert(header, msg) {
+	const alert = await this.alertCtrl.create({
+			message: header,
+			subTitle: msg,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
+
   // Save the token to firestore
   private saveTokenToFirestore(token) {
 
   	if (!token) return;
 
+  	
 	const devicesRef = this.afs.collection('devices')
 
 	const docData = { 
 		token,
-		userId: 'testUser',
+		uuid: this.device.uuid,
+		version: this.device.version,
+		platform: this.device.platform,
+		model: this.device.model,
+		manufacturer: this.device.manufacturer
 	}
 
 	return devicesRef.doc(token).set(docData)
@@ -55,7 +74,7 @@ export class FcmProvider {
 
   // Listen to incoming FCM messages
   listenToNotifications() {
-  	return this.firebaseNative.onNotificationOpen()
+  	return this.firebaseNative.onNotificationOpen();
   }
 
 }

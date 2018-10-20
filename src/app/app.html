@@ -1,6 +1,6 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="danger">
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -10,6 +10,14 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
+      <ion-item-divider color="light"></ion-item-divider>
+        <button menuClose ion-item (click)="contactUs()">
+            ទំនាក់ទំនង
+        </button>
+        <button menuClose ion-item (click)="rateUs()">
+            ផ្តល់ពិន្ទុ
+        </button>
+      
     </ion-list>
   </ion-content>
 

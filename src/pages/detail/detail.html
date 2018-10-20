@@ -1,0 +1,35 @@
+
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{post?.title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<img [src]="post?.image" *ngIf="post?.image"/>
+
+	<div padding>
+		<div class="title" [innerHtml]="post?.title"></div>
+		<div class="date">
+			<ion-row no-padding>
+				<ion-col text-left>
+					<button ion-button clear>
+						{{post?.date | timeAgo}}
+					</button>
+				</ion-col>
+				<ion-col text-right>
+					<button ion-button clear (click)="shareFacebook(post)">
+			          <ion-icon name='logo-facebook'></ion-icon>
+			           share
+			        </button>
+				</ion-col>
+			</ion-row>
+		</div>
+		<div class="content" [innerHtml]="post?.content | safeHtml"></div>
+	</div>
+</ion-content>

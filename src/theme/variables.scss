@@ -13,7 +13,7 @@ $app-direction: ltr;
 
 
 @import "ionic.globals";
-
+@import url('https://fonts.googleapis.com/css?family=Battambang');
 
 // Shared Variables
 // --------------------------------------------------
@@ -40,6 +40,11 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222
 );
+  
+$font-family-md-base: 'Battambang', sans-serif !important;
+$font-family-ios-base: 'Battambang', sans-serif !important;
+$font-family-wp-base: 'Battambang', sans-serif !important;
+
 
 
 // App iOS Variables
@@ -86,3 +91,5 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+

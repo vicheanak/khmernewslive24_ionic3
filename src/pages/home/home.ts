@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, AlertController } from 'ionic-angular';
+import { NavController, Platform, AlertController, NavParams } from 'ionic-angular';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { WpProvider } from '../../providers/wp/wp';
+import {DetailPage} from '../../pages/detail/detail';
+
 
 import { Pro } from '@ionic/pro';
 
@@ -15,10 +18,83 @@ export class HomePage {
 	public deployChannel = "";
 	public isBeta = false;
 	public downloadProgress = 0;
+	public categoryId: any = "";
+	public pageTitle: any = "";
+	
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string }> = [];
+	public morePagesAvailable: Boolean;
+	private page: number = 1;
+
+	constructor(private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
+
+		this.categoryId = navParams.get('categoryId');
+		
+		let arrayTitle = [
+		{id: null, title: 'Khmer News Live 24'},
+		{id: 2, title: 'ពត៌មាន Live'},
+		{id: 3, title: 'សិល្បះ & កំសាន្ត'},
+		{id: 4, title: 'សុខភាព & ជីវិត'},
+		{id: 1, title: 'យល់ដឹង'},
+		{id: 6, title: 'ប្លែកៗ'},
+		{id: 16, title: 'កីឡា'},
+		{id: 17, title: 'បច្ចេកវិទ្យា'}
+		];
+
+		for (let i = 0; i < arrayTitle.length; i ++){
+			if (this.categoryId == arrayTitle[i]['id']){
+				this.pageTitle = arrayTitle[i]['title'];
+			}
+		}
+		
+		this.posts = [];
+		this.wpProvider.refresh(this.categoryId).then((posts) => {
+			for(let post of posts){
+				this.posts.push(post);
+			}
+		});
+
+		this.syncing();
+
+	}
+
+	doRefresh(refresher){
+		this.page = 1;
+		this.posts = [];
+		this.wpProvider.refresh(this.categoryId).then((posts) => {
+			for(let post of posts){
+				this.posts.push(post);
+			}
+			refresher.complete();
+		});		
+	}
+
+	doInfinite(infiniteScroll) {
+		let loading = true;
+		let posts = [];
+
+		this.page++;
+
+		this.wpProvider.getPosts(this.page, this.categoryId).then((posts) => {
+			
+			for(let post of posts){
+				
+
+				if(!loading){
+					infiniteScroll.complete();
+				}
+
+				this.posts.push(post);
+				loading = false;
+			}
+		});
+	}
 
 
-	constructor(private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
-
+	pushDetail(id){
+		
+		this.navCtrl.push(DetailPage, {
+			id: id
+		});
 	}
 
 
@@ -40,13 +116,13 @@ export class HomePage {
 			// We encountered an error.
 			// Here's how we would log it to Ionic Pro Monitoring while also catching:
 
-			// Pro.monitoring.exception(err);
+			Pro.monitoring.exception(err);
 		}
 	}
 
-	async toggleBeta() {
+	async syncing() {
 		const config = {
-			channel: (this.isBeta ? 'Beta' : 'Production')
+			channel: 'Production'
 		}
 
 		try {
@@ -57,57 +133,22 @@ export class HomePage {
 			// We encountered an error.
 			// Here's how we would log it to Ionic Pro Monitoring while also catching:
 
-			// Pro.monitoring.exception(err);
+			Pro.monitoring.exception(err);
 		}
 
 	}
 
-	async performManualUpdate() {
 
-    /*
-      Here we are going through each manual step of the update process:
-      Check, Download, Extract, and Redirect.
-
-      Ex: Check, Download, Extract when a user logs into your app,
-        but Redirect when they logout for an app that is always running
-        but used with multiple users (like at a doctors office).
-        */
-
-        try {
-        	const update = await Pro.deploy.checkForUpdate();
-
-        	if (update.available){
-        		this.presentAlert("Downloading...");
-        		this.downloadProgress = 0;
-
-        		await Pro.deploy.downloadUpdate((progress) => {
-        			this.downloadProgress = progress;
-        		})
-        		await Pro.deploy.extractUpdate();
-        		await Pro.deploy.reloadApp();
-        	}
-        	else{
-        		this.presentAlert("No Update!");
-        	}
-        } catch (err) {
-        	// We encountered an error.
-        	// Here's how we would log it to Ionic Pro Monitoring while also catching:
-
-        	// Pro.monitoring.exception(err);
-        }
-
-    }
-
-    shareOnFacebook() {
+    shareFacebook(post) {
     	let appName = 'facebook';
     	if (this.platform.is('ios')) {
     		appName = 'com.apple.social.facebook'
     	}
 
-    	this.socialSharing.shareViaFacebook('Test', null, "www.google.com").then(() => {
+    	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
 
-    	}).catch((msg) => {
-
+    	}).catch((err) => {
+			Pro.monitoring.exception(err);		
     	});
     }
 

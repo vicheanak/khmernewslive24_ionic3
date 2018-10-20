@@ -1,32 +1,50 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="danger">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Master Man!</h3>
+<ion-content>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-card class="my-card card" no-padding *ngFor="let post of posts">
+      <div (click)="pushDetail(post.id)">
+      <img [src]="post?.image" *ngIf="post?.image"/>
+    
+      <ion-card-content>
+        <ion-card-title style="font-size:18px; line-height: 1.5;" text-wrap [innerHtml]="post.title">
+        </ion-card-title>
+      </ion-card-content>
+    </div>
+    
+    <ion-row no-padding>
+      <ion-col text-left>
+        <button ion-button clear>
+          {{post?.date | timeAgo}}
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear (click)="shareFacebook(post)">
+          <ion-icon name='logo-facebook'></ion-icon>
+           share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  
 
-  <button ion-button primary (click)="shareOnFacebook()">Share</button>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="រង់ចាំពត៌មានបន្ថែម...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-  <h3>Settings</h3>
-
-  <p>I'm connected to the {{ deployChannel }}.</p>
-
-  <p>Download Progress {{ downloadProgress }} / 100</p>
-  <button ion-button primary (click)="performManualUpdate()">Manual Update</button>
-  <ion-item>
-    <ion-label>Opt in to Beta Features</ion-label>
-    <ion-toggle [(ngModel)]="isBeta" (ionChange)="toggleBeta()"></ion-toggle>
-  </ion-item>
 
 </ion-content>

@@ -5,6 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { ContactPage } from '../pages/contact/contact';
+import { DetailPage } from '../pages/detail/detail';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,8 +21,23 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FcmProvider } from '../providers/fcm/fcm';
 
+
+import { Device } from '@ionic-native/device';
+import { WpProvider } from '../providers/wp/wp';
+
+
+import {TimeAgoPipe} from 'time-ago-pipe';
+
+import {PipesModule} from '../pipes/pipes.module';
+
+
 const firebase = {
- // your firebase web config
+  apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
+  authDomain: "khmer-news-live-24.firebaseapp.com",
+  databaseURL: "https://khmer-news-live-24.firebaseio.com",
+  projectId: "khmer-news-live-24",
+  storageBucket: "khmer-news-live-24.appspot.com",
+  messagingSenderId: "1092261335543"
 }
 
 Pro.init('4dc427d8', {
@@ -52,19 +69,25 @@ export class MyErrorHandler implements ErrorHandler {
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetailPage,
+    ContactPage,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebase), 
     AngularFirestoreModule,
     IonicModule.forRoot(MyApp),
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    DetailPage,
+    ContactPage
   ],
   providers: [
     StatusBar,
@@ -73,8 +96,9 @@ export class MyErrorHandler implements ErrorHandler {
     IonicErrorHandler,
     Firebase,
     FcmProvider,
+    Device,
     {provide: ErrorHandler, useClass: MyErrorHandler},
-    FcmProvider
+    WpProvider
   ]
 })
 export class AppModule {}
