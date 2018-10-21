@@ -24,6 +24,7 @@ export class HomePage {
 	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string }> = [];
 	public morePagesAvailable: Boolean;
 	private page: number = 1;
+	public isReady: boolean = false;
 
 	constructor(private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
 
@@ -51,6 +52,7 @@ export class HomePage {
 			for(let post of posts){
 				this.posts.push(post);
 			}
+			this.isReady = true;
 		});
 
 		// this.syncing();
