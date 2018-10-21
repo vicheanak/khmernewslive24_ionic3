@@ -23,7 +23,6 @@ Pro.init('2bd9848f', {
 })
 
 
-
 @Component({
   templateUrl: 'app.html',
   selector: 'page-app',
@@ -97,27 +96,27 @@ export class MyApp {
 
   async showAds(){
     let videoAd;
-      let bannerAd;
-      if(this.platform.is('android')) 
-      {
-        videoAd = 'ca-app-pub-3976244189029334/8229934618';
-        bannerAd = 'ca-app-pub-3976244189029334/1085941867';
-      } 
-      else if (this.platform.is('ios')) 
-      {
-        videoAd = 'ca-app-pub-3976244189029334/3015344375';
-        bannerAd = 'ca-app-pub-3976244189029334/4011488000';
-      }
+    let bannerAd;
+    if(this.platform.is('android')) 
+    {
+      videoAd = 'ca-app-pub-3976244189029334/8229934618';
+      bannerAd = 'ca-app-pub-3976244189029334/1085941867';
+    } 
+    else if (this.platform.is('ios')) 
+    {
+      videoAd = 'ca-app-pub-3976244189029334/3015344375';
+      bannerAd = 'ca-app-pub-3976244189029334/4011488000';
+    }
 
-      setTimeout(() => {
-        this.admob.prepareRewardVideoAd({adId: videoAd})
-        .then(() => { 
-            this.admob.showRewardVideoAd(); 
-        });
-      }, 30000);
 
-      this.admob.createBanner({adId: bannerAd})
-      .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
+    this.admob.prepareRewardVideoAd({adId: videoAd})
+    .then(() => { 
+      this.admob.showRewardVideoAd(); 
+    });
+    
+
+    this.admob.createBanner({adId: bannerAd})
+    .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
   }
 
   async presentAlert(msg, subtitle) {

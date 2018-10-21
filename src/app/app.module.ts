@@ -32,6 +32,9 @@ import {PipesModule} from '../pipes/pipes.module';
 
 import { AdMobPro } from '@ionic-native/admob-pro';
 import { AppRate } from '@ionic-native/app-rate';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
+import { CallNumber } from '@ionic-native/call-number';
 
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
@@ -101,8 +104,11 @@ export class MyErrorHandler implements ErrorHandler {
     Device,
     AdMobPro,
     AppRate,
+    InAppBrowser,
+    CallNumber,
     {provide: ErrorHandler, useClass: MyErrorHandler},
-    WpProvider
+    WpProvider,
+    AppAvailability
   ]
 })
 export class AppModule {}

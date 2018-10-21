@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
+import { CallNumber } from '@ionic-native/call-number';
 
 /**
  * Generated class for the ContactPage page.
@@ -10,20 +12,65 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  */
 
 
-@Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html',
-})
-export class ContactPage {
+ @Component({
+ 	selector: 'page-contact',
+ 	templateUrl: 'contact.html',
+ })
+ export class ContactPage {
 
-	public logo = "../assets/imgs/logo.png";
-	
+ 	public logo = "../assets/imgs/logo.png";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
-  }
+ 	constructor(
+ 		private callNumber: CallNumber, 
+ 		private platform: Platform, 
+ 		private appAvailability: AppAvailability, 
+ 		private iab: InAppBrowser, 
+ 		public navCtrl: NavController, 
+ 		public navParams: NavParams) {
 
-}
+
+
+ 	}
+
+ 	launchExternalApp(iosSchemaName: string, androidPackageName: string, appUrl: string, httpUrl: string, username: string) {
+ 		let app: string;
+ 		if (this.platform.is('ios')) {
+ 			app = iosSchemaName;
+ 		} else if (this.platform.is('android')) {
+ 			app = androidPackageName;
+ 		} else {
+ 			let browser = this.iab.create(httpUrl + username, '_system');
+ 			return;
+ 		}
+
+ 		this.appAvailability.check(app).then(
+ 			() => { // success callback
+ 				let browser = this.iab.create(appUrl + username, '_system');
+ 			},
+ 			() => { // error callback
+ 				let browser = this.iab.create(httpUrl + username, '_system');
+ 			}
+ 			);
+ 	}
+
+ 	call(number: string){
+ 		this.callNumber.callNumber(number, true)
+ 		.then(res => console.log('Launched dialer!', res))
+ 		.catch(err => console.log('Error launching dialer', err));
+ 	}
+
+
+ 	openFacebook(username: string) {
+ 		this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://profile/', 'https://www.facebook.com/', username);
+ 	}
+
+ 	ionViewDidLoad() {
+ 		console.log('ionViewDidLoad ContactPage');
+ 	}
+
+ 	openBrowser(){
+ 		this.iab.create('https://www.khmernewslive24.com/');
+ 	}
+
+ }

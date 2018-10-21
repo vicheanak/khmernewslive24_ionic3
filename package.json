@@ -21,18 +21,24 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/admob-pro": "^4.16.0",
+    "@ionic-native/app-availability": "^4.16.0",
     "@ionic-native/app-rate": "^4.16.0",
+    "@ionic-native/call-number": "^4.16.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/device": "^4.16.0",
     "@ionic-native/firebase": "^4.16.0",
+    "@ionic-native/in-app-browser": "^4.16.0",
     "@ionic-native/social-sharing": "^4.16.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/pro": "^2.0.3",
     "@ionic/storage": "2.2.0",
     "angularfire2": "^5.0.2",
+    "call-number": "1.0.1",
+    "cordova": "8.1.2",
     "cordova-android": "7.1.1",
     "cordova-plugin-admobpro": "2.32.6",
+    "cordova-plugin-appavailability": "0.4.2",
     "cordova-plugin-apprate": "1.4.0",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-dialogs": "2.0.1",
@@ -93,7 +99,10 @@
       "cordova-plugin-apprate": {},
       "cordova-plugin-admobpro": {
         "PLAY_SERVICES_VERSION": "16.0.0"
-      }
+      },
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-appavailability": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android"
