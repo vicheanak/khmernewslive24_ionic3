@@ -53,7 +53,7 @@ export class HomePage {
 			}
 		});
 
-		this.syncing();
+		// this.syncing();
 
 	}
 
