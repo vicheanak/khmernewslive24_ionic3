@@ -66,6 +66,8 @@ export class MyApp {
     this.platform.ready().then(() => {
 
       this.fcm.getToken();
+      this.presentAlert('Notification', 'OPen Home Page');
+      this.rootPage = HomePage;
 
       try{
         this.fcm.listenToNotifications().subscribe((response) => {
@@ -92,7 +94,7 @@ export class MyApp {
         this.presentAlert('Error Token FCM', err);
       }
       
-      this.rootPage = HomePage;
+
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
