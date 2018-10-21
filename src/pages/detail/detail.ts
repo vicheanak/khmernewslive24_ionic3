@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { WpProvider } from '../../providers/wp/wp';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
@@ -16,7 +16,8 @@ export class DetailPage {
   	private wpProvider: WpProvider, 
   	private socialSharing: SocialSharing, 
   	public navCtrl: NavController, 
-  	public navParams: NavParams) {
+  	public navParams: NavParams,
+  	public alertCtrl: AlertController) {
 
   }
 
@@ -32,11 +33,29 @@ export class DetailPage {
 
 
   }
+
+  async presentAlert(msg, subtitle) {
+		const alert = await this.alertCtrl.create({
+			message: msg,
+			subTitle: subtitle,
+			buttons: ['OK']
+		});
+
+		await alert.present();
+	}
+
+
   ionViewWillEnter(){
   	let postId = this.navParams.get('id');
-  	
+
 
   	this.post = this.wpProvider.getPost(postId);
+
+  	if (!this.post){
+  		this.wpProvider.getSinglePost(postId).then(post => {
+  			this.post = post;
+  		});
+  	}
 
   }
 

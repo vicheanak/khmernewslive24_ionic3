@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { DetailPage } from '../pages/detail/detail';
 
 import { FcmProvider } from '../providers/fcm/fcm';
 
@@ -30,7 +31,8 @@ Pro.init('2bd9848f', {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = DetailPage;
+  postId: any = {id: '31934'};
 
   pages: Array<{title: string, component: any, categoryId: number}>;
 
@@ -68,6 +70,7 @@ export class MyApp {
       this.fcm.listenToNotifications().subscribe((response) => {
         if(response.tap){
 
+          this.presentAlert('Notification', response.data['link']);
           //Received while app in background (this should be the callback when a system notification is tapped)
           //This is empty for our app since we just needed the notification to open the app
         }else{

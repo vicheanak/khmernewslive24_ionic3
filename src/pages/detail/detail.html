@@ -1,11 +1,12 @@
 
 
 <ion-header>
-
   <ion-navbar color="danger">
+  	<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>{{post?.title}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -24,8 +25,7 @@
 				</ion-col>
 				<ion-col text-right>
 					<button ion-button clear (click)="shareFacebook(post)">
-			          <ion-icon name='logo-facebook'></ion-icon>
-			           share
+			          <ion-icon name='logo-facebook'></ion-icon> share
 			        </button>
 				</ion-col>
 			</ion-row>
