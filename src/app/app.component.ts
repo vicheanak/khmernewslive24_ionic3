@@ -31,7 +31,7 @@ Pro.init('2bd9848f', {
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = DetailPage;
+  rootPage: any;
   postId: any = {id: '31934'};
 
   pages: Array<{title: string, component: any, categoryId: number}>;
@@ -67,24 +67,32 @@ export class MyApp {
 
       this.fcm.getToken();
 
-      this.fcm.listenToNotifications().subscribe((response) => {
-        if(response.tap){
+      try{
+        this.fcm.listenToNotifications().subscribe((response) => {
+          if(response.tap){
 
-          this.presentAlert('Notification', response.data['link']);
-          //Received while app in background (this should be the callback when a system notification is tapped)
-          //This is empty for our app since we just needed the notification to open the app
-        }else{
+            this.presentAlert('Notification', response.data['link']);
+            //Received while app in background (this should be the callback when a system notification is tapped)
+            //This is empty for our app since we just needed the notification to open the app
+            
+          }else{
+            this.rootPage = DetailPage;
+            this.presentAlert('Link', response.data['link']);
+            this.presentAlert('Body', response.body);
+            //received while app in foreground (show a toast)
+            let toast = this.toastCtrl.create({
+              message: response.body,
+              duration: 3000
+            });
+            toast.present();
 
-          this.presentAlert('Link', response.data['link']);
-          //received while app in foreground (show a toast)
-          let toast = this.toastCtrl.create({
-            message: response.body,
-            duration: 3000
-          });
-          toast.present();
-        }
-      });
-
+          }
+        });
+      }catch(err){
+        this.presentAlert('Error Token FCM', err);
+      }
+      
+      this.rootPage = HomePage;
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
