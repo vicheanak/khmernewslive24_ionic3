@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { CallNumber } from '@ionic-native/call-number';
@@ -27,7 +27,8 @@ import { CallNumber } from '@ionic-native/call-number';
  		private appAvailability: AppAvailability, 
  		private iab: InAppBrowser, 
  		public navCtrl: NavController, 
- 		public navParams: NavParams) {
+ 		public navParams: NavParams,
+ 		private alertCtrl: AlertController) {
 
 
 
@@ -43,26 +44,45 @@ import { CallNumber } from '@ionic-native/call-number';
  			let browser = this.iab.create(httpUrl + username, '_system');
  			return;
  		}
-
- 		this.appAvailability.check(app).then(
+ 		try{
+ 			this.appAvailability.check(app).then(
  			() => { // success callback
  				let browser = this.iab.create(appUrl + username, '_system');
  			},
  			() => { // error callback
  				let browser = this.iab.create(httpUrl + username, '_system');
  			}
- 			);
+ 			);	
+ 		}catch(err){
+ 			this.presentAlert('Error Laucnh External', err);
+ 		}
+ 		
+ 	}
+
+ 	async presentAlert(msg, subtitle) {
+ 		const alert = await this.alertCtrl.create({
+ 			message: msg,
+ 			subTitle: subtitle,
+ 			buttons: ['OK']
+ 		});
+
+ 		await alert.present();
  	}
 
  	call(number: string){
- 		this.callNumber.callNumber(number, true)
- 		.then(res => console.log('Launched dialer!', res))
- 		.catch(err => console.log('Error launching dialer', err));
+ 		try{
+ 			this.callNumber.callNumber(number, true)
+	 		.then(res => console.log('Launched dialer!', res))
+	 		.catch(err => console.log('Error launching dialer', err));
+ 		}catch(err){
+ 			this.presentAlert('Call', err);
+ 		}
+ 		
  	}
 
 
  	openFacebook(username: string) {
- 		this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://profile/', 'https://www.facebook.com/', username);
+ 		this.launchExternalApp('fb://', 'com.facebook.katana', 'fb://page/', 'https://www.facebook.com/', username);
  	}
 
  	ionViewDidLoad() {

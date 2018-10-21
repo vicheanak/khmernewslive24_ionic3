@@ -30,16 +30,16 @@
 		<ion-card-content>
 			
 			<ion-list>
-				<ion-item>
-					<ion-icon name="logo-chrome" color="warning" (click)="openBrowser()" item-start></ion-icon>
+				<ion-item (click)="openBrowser()">
+					<ion-icon name="logo-chrome" color="warning"  item-start></ion-icon>
 					www.khmernewslive24.com
 				</ion-item>
-				<ion-item>
-					<ion-icon name="logo-facebook" color="primary" item-start (click)="openFacebook('khmernewslive24')"></ion-icon>
+				<ion-item (click)="openFacebook('khmernewslive24')">
+					<ion-icon name="logo-facebook" color="primary" item-start ></ion-icon>
 					fb.com/khmernewslive24
 				</ion-item>
-				<ion-item>
-					<ion-icon name="call" (click)="call('0969269999')" color="secondary" item-start></ion-icon>
+				<ion-item (click)="call('0969269999')" >
+					<ion-icon name="call" color="secondary" item-start></ion-icon>
 					096 926 9999
 				</ion-item>
 			</ion-list>
