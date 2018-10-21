@@ -66,21 +66,21 @@ export class MyApp {
     this.platform.ready().then(() => {
 
       this.fcm.getToken();
-      this.presentAlert('Notification', 'OPen Home Page');
+      
       this.rootPage = HomePage;
 
       try{
         this.fcm.listenToNotifications().subscribe((response) => {
           if(response.tap){
 
-            this.presentAlert('Notification', response.data['link']);
+            // this.presentAlert('Notification', response.data['link']);
             //Received while app in background (this should be the callback when a system notification is tapped)
             //This is empty for our app since we just needed the notification to open the app
             
           }else{
             this.rootPage = DetailPage;
-            this.presentAlert('Link', response.data['link']);
-            this.presentAlert('Body', response.body);
+            // this.presentAlert('Link', response.data['link']);
+            // this.presentAlert('Body', response.body);
             //received while app in foreground (show a toast)
             let toast = this.toastCtrl.create({
               message: response.body,
