@@ -84,14 +84,6 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-x-socialsharing" spec="5.4.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.2.0" />
-    <plugin name="cordova-plugin-ionic" spec="5.2.5">
-        <variable name="APP_ID" value="4dc427d8" />
-        <variable name="CHANNEL_NAME" value="Master" />
-        <variable name="UPDATE_METHOD" value="background" />
-        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
-        <variable name="MAX_STORE" value="2" />
-        <variable name="MIN_BACKGROUND_DURATION" value="30" />
-    </plugin>
     <plugin name="cordova-plugin-firebase" spec="2.0.5" />
     <allow-navigation href="http://192.168.8.100:8100" sessionid="1c4bcf0e" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
@@ -111,4 +103,12 @@
         <ios-team-release value="PW4Q8885U7" />
     </branch-config>
     <engine name="android" spec="7.1.1" />
+    <plugin name="cordova-plugin-ionic" spec="5.2.5">
+        <variable name="APP_ID" value="4dc427d8" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+        <variable name="MIN_BACKGROUND_DURATION" value="30" />
+    </plugin>
 </widget>

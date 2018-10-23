@@ -132,7 +132,7 @@ export class HomePage {
 
 	async syncing() {
 		const config = {
-			channel: 'Production'
+			channel: 'Master'
 		}
 
 		try {
