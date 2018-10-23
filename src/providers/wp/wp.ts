@@ -90,7 +90,7 @@ export class WpProvider {
 
 					let app_link = data[i]['app_link'];
 					
-					let content = data[i]['content']['rendered'];
+					let content = data[i]['the_content'];
 					if (data[i]['original_content'].length){
 						content = data[i]['original_content'][0];
 					}

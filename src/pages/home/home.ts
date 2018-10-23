@@ -28,7 +28,7 @@ export class HomePage {
 	public morePagesAvailable: Boolean;
 	private page: number = 1;
 	public isReady: boolean = false;
-	public debug: any;
+	
 
 	constructor(private toast: Toast, 
 		private clipboard: Clipboard, 
@@ -158,7 +158,7 @@ export class HomePage {
 
 
 	copy(post){
-		this.clipboard.copy(post.app_link);
+		this.clipboard.copy(post.title + ' - Source: ' + post.app_link);
 		this.toast.show('កូពី', '1500', 'center').subscribe(
 		  toast => {
 		    

@@ -18,13 +18,13 @@
       <div (click)="pushDetail(post.id)">
       <img [src]="post?.image" *ngIf="post?.image"/>
       
-      <ion-card-content>
+      <ion-card-content style="margin: 0px 0px">
         <ion-card-title style="font-size:18px; line-height: 1.5;" text-wrap [innerHtml]="post.title">
         </ion-card-title>
       </ion-card-content>
     </div>
     
-    <ion-row no-padding>
+    <ion-row no-padding style="margin: 0px 0px;">
       <ion-col text-left>
         <button ion-button clear large (click)="copy(post)">
           <ion-icon name='md-copy'></ion-icon>
