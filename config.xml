@@ -102,7 +102,6 @@
         <link-domain value="khmernewslive.app.link" />
         <ios-team-release value="PW4Q8885U7" />
     </branch-config>
-    <engine name="android" spec="7.1.1" />
     <plugin name="cordova-plugin-ionic" spec="5.2.5">
         <variable name="APP_ID" value="4dc427d8" />
         <variable name="CHANNEL_NAME" value="Master" />
@@ -111,4 +110,6 @@
         <variable name="MAX_STORE" value="2" />
         <variable name="MIN_BACKGROUND_DURATION" value="30" />
     </plugin>
+    <engine name="android" spec="7.1.1" />
+    <plugin name="cordova-clipboard" spec="1.2.1" />
 </widget>

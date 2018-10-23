@@ -5,7 +5,7 @@ import { WpProvider } from '../../providers/wp/wp';
 import {DetailPage} from '../../pages/detail/detail';
 import {ContactPage} from '../../pages/contact/contact';
 import { BranchIo } from '@ionic-native/branch-io';
-
+import { Clipboard } from '@ionic-native/clipboard';
 
 
 import { Pro } from '@ionic/pro';
@@ -30,7 +30,7 @@ export class HomePage {
 	public isReady: boolean = false;
 	public debug: any;
 
-	constructor(private branch: BranchIo, private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
+	constructor(private clipboard: Clipboard, private branch: BranchIo, private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
 
 		this.categoryId = navParams.get('categoryId');
 		
@@ -60,7 +60,7 @@ export class HomePage {
 		});
 
 
-		this.syncing();
+		// this.syncing();
 
 	}
 
@@ -138,7 +138,7 @@ export class HomePage {
 		try {
 			await Pro.deploy.configure(config);
 			await this.checkChannel();
-			await Pro.deploy.sync({updateMethod: 'auto'}); // Alternatively, to customize how this works, use performManualUpdate()
+			// await Pro.deploy.sync({updateMethod: 'auto'}); // Alternatively, to customize how this works, use performManualUpdate()
 		} catch (err) {
 			// We encountered an error.
 			// Here's how we would log it to Ionic Pro Monitoring while also catching:
@@ -149,12 +149,16 @@ export class HomePage {
 	}
 
 
+	copy(post){
+		this.clipboard.copy(post.app_link);
+	}
+
     shareFacebook(post) {
     	let appName = 'facebook';
     	if (this.platform.is('ios')) {
     		appName = 'com.apple.social.facebook'
     	}
-
+    	this.presentAlert('app_link', post.app_link);
     	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
     	}).catch((err) => {
