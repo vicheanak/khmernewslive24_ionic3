@@ -158,8 +158,8 @@ export class HomePage {
 
 
 	copy(post){
-		this.clipboard.copy(post.title + ' - Source: ' + post.app_link);
-		this.toast.show('កូពី', '1500', 'center').subscribe(
+		this.clipboard.copy(post.title + ' ' + post.app_link);
+		this.toast.show('Copied...', '1500', 'center').subscribe(
 		  toast => {
 		    
 		  }

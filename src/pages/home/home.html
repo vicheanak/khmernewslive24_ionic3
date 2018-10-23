@@ -18,19 +18,19 @@
       <div (click)="pushDetail(post.id)">
       <img [src]="post?.image" *ngIf="post?.image"/>
       
-      <ion-card-content style="margin: 0px 0px">
-        <ion-card-title style="font-size:18px; line-height: 1.5;" text-wrap [innerHtml]="post.title">
+      <ion-card-content style="margin: 0px; padding: 0px;">
+        <ion-card-title style="font-size:18px; font-weight: bold; line-height: 1.5; margin: 0px; padding: 5px;" text-wrap [innerHtml]="post.title">
         </ion-card-title>
       </ion-card-content>
     </div>
     
-    <ion-row no-padding style="margin: 0px 0px;">
-      <ion-col text-left>
+    <ion-row no-padding>
+      <ion-col text-left style="margin: 0px; padding: 0px;">
         <button ion-button clear large (click)="copy(post)">
           <ion-icon name='md-copy'></ion-icon>
         </button>
       </ion-col>
-      <ion-col text-right>
+      <ion-col text-right style="margin: 0px; padding: 0px;">
         <button ion-button clear large (click)="shareFacebook(post)">
           <ion-icon name='logo-facebook'></ion-icon>
         </button>

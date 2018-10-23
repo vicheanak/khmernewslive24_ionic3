@@ -107,11 +107,13 @@ export class MyApp {
         if (data['+clicked_branch_link']) {
           
           let url = data['$canonical_url'];
-          url = url.split('p=');
-          let id = url[1];
-          this.nav.setRoot(DetailPage, {
-            id: id
-          });
+          if (url){
+            url = url.split('p=');
+            let id = url[1];
+            this.nav.setRoot(DetailPage, {
+              id: id
+            });
+          }
         }
       });
       
@@ -130,11 +132,14 @@ export class MyApp {
           
           
           let url = data['$canonical_url'];
-          url = url.split('p=');
-          let id = url[1];
-          this.nav.setRoot(DetailPage, {
-            id: id
-          });
+          if (url){
+            url = url.split('p=');
+            let id = url[1];
+            this.nav.setRoot(DetailPage, {
+              id: id
+            });
+          }
+          
           
         }
       });
@@ -152,8 +157,8 @@ export class MyApp {
     let bannerAd;
     if(this.platform.is('android')) 
     {
-      videoAd = 'ca-app-pub-3976244189029334/8229934618';
-      bannerAd = 'ca-app-pub-3976244189029334/1085941867';
+      videoAd = 'ca-app-pub-3976244179029334/5123051820';
+      bannerAd = 'ca-app-pub-3976244179029334/2760612369';
     } 
     else if (this.platform.is('ios')) 
     {
