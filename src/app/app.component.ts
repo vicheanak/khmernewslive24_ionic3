@@ -16,6 +16,7 @@ import { AdMobPro } from '@ionic-native/admob-pro';
 import { AppRate } from '@ionic-native/app-rate';
 import { Pro } from '@ionic/pro';
 import { ContactPage } from '../pages/contact/contact';
+import { BranchIo } from '@ionic-native/branch-io';
 
 // import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
@@ -34,6 +35,7 @@ export class MyApp {
   rootPage: any;
   postId: any = {id: '31934'};
 
+
   pages: Array<{title: string, component: any, categoryId: number}>;
 
   constructor(
@@ -45,6 +47,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private admob: AdMobPro,
     private appRate: AppRate,
+    private branch: BranchIo
     ) {
     this.initializeApp();
 
@@ -100,12 +103,49 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      this.branch.initSession().then(data => {
+        if (data['+clicked_branch_link']) {
+          
+          let url = data['$canonical_url'];
+          url = url.split('p=');
+          let id = url[1];
+          this.nav.setRoot(DetailPage, {
+            id: id
+          });
+        }
+      });
+      
+
       this.showAds();
       
       this.rateAuto();
+
+      
       
     });
+
+    this.platform.resume.subscribe(() => {
+      this.branch.initSession().then(data => {
+        if (data['+clicked_branch_link']) {
+          
+          
+          let url = data['$canonical_url'];
+          url = url.split('p=');
+          let id = url[1];
+          this.nav.setRoot(DetailPage, {
+            id: id
+          });
+          
+        }
+      });
+    });
+
+
+    
   }
+
+
+  
 
   async showAds(){
     let videoAd;
@@ -131,6 +171,8 @@ export class MyApp {
     this.admob.createBanner({adId: bannerAd})
     .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
   }
+
+ 
 
   async presentAlert(msg, subtitle) {
     const alert = await this.alertCtrl.create({
@@ -209,6 +251,7 @@ export class MyApp {
     this.appRate.promptForRating(true);
   }
   
+
 
   openPage(page) {
     // Reset the content nav to have just this page

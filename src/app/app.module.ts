@@ -36,6 +36,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { CallNumber } from '@ionic-native/call-number';
 
+import { BranchIo } from '@ionic-native/branch-io';
+
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
   authDomain: "khmer-news-live-24.firebaseapp.com",
@@ -108,7 +110,8 @@ export class MyErrorHandler implements ErrorHandler {
     CallNumber,
     {provide: ErrorHandler, useClass: MyErrorHandler},
     WpProvider,
-    AppAvailability
+    AppAvailability,
+    BranchIo
   ]
 })
 export class AppModule {}

@@ -3,6 +3,8 @@ import { NavController, Platform, AlertController, NavParams } from 'ionic-angul
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { WpProvider } from '../../providers/wp/wp';
 import {DetailPage} from '../../pages/detail/detail';
+import {ContactPage} from '../../pages/contact/contact';
+
 
 
 import { Pro } from '@ionic/pro';
@@ -55,9 +57,12 @@ export class HomePage {
 			this.isReady = true;
 		});
 
+
 		// this.syncing();
 
 	}
+
+	
 
 	doRefresh(refresher){
 		this.page = 1;
@@ -100,9 +105,10 @@ export class HomePage {
 	}
 
 
-	async presentAlert(msg) {
+	async presentAlert(msg, subtitle) {
 		const alert = await this.alertController.create({
 			message: msg,
+			subTitle: subtitle,
 			buttons: ['OK']
 		});
 

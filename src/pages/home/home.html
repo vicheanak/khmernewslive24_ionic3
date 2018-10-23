@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="my-card card" no-padding  *ngIf="isReady == false">
-    <img class="logo" src="../assets/loading.gif"/>
-  </ion-card>
+  
+    <img class="logo" src="../assets/loading.gif" *ngIf="isReady == false"/>
+  
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

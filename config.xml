@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.khmernewslive24.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.khmernewslive24.app" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Khmer News Live 24</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <description>Enjoy reading video news in Khmer Language</description>
+    <author email="vicheanak@gmail.com" href="https://www.khmernewslive24.com/">Vannavy Vicheanak</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -103,5 +103,12 @@
     <plugin name="cordova-plugin-inappbrowser" spec="3.0.0" />
     <plugin name="cordova-plugin-appavailability" spec="0.4.2" />
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
+    <plugin name="branch-cordova-sdk" spec="~2.6.24" />
+    <branch-config>
+        <branch-key value="key_live_leKpjCu7Ry6CklliGho9qnpdryljE4k5" />
+        <uri-scheme value="khmernewslive" />
+        <link-domain value="khmernewslive.app.link" />
+        <ios-team-release value="PW4Q8885U7" />
+    </branch-config>
     <engine name="android" spec="7.1.1" />
 </widget>
