@@ -4,6 +4,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { WpProvider } from '../../providers/wp/wp';
 import {DetailPage} from '../../pages/detail/detail';
 import {ContactPage} from '../../pages/contact/contact';
+import { BranchIo } from '@ionic-native/branch-io';
 
 
 
@@ -23,12 +24,13 @@ export class HomePage {
 	public categoryId: any = "";
 	public pageTitle: any = "";
 	
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string }> = [];
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; app_link: string }> = [];
 	public morePagesAvailable: Boolean;
 	private page: number = 1;
 	public isReady: boolean = false;
+	public debug: any;
 
-	constructor(private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
+	constructor(private branch: BranchIo, private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
 
 		this.categoryId = navParams.get('categoryId');
 		
@@ -58,7 +60,7 @@ export class HomePage {
 		});
 
 
-		// this.syncing();
+		this.syncing();
 
 	}
 
@@ -153,7 +155,7 @@ export class HomePage {
     		appName = 'com.apple.social.facebook'
     	}
 
-    	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
+    	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
     	}).catch((err) => {
 			Pro.monitoring.exception(err);		

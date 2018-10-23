@@ -24,7 +24,7 @@ interface Post {
 @Injectable()
 export class WpProvider {
 
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string}> = [];
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string, app_link: string}> = [];
 	private wp: any = new WPAPI({ endpoint: 'https://www.khmernewslive24.com/?_embed&rest_route=/' });
 	public post: any;
 
@@ -45,6 +45,8 @@ export class WpProvider {
 					if (data[i]._embedded['wp:featuredmedia']){
 						img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
 					}
+					
+					let app_link = data[i]['app_link'];
 
 					let content = data[i]['the_content'];
 
@@ -59,7 +61,8 @@ export class WpProvider {
 						content: content,
 						image: img,
 						date: data[i].date,
-						link: data[i].link
+						link: data[i].link,
+						app_link: app_link
 					});
 
 				}
@@ -85,6 +88,7 @@ export class WpProvider {
 						img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
 					}
 
+					let app_link = data[i]['app_link'];
 					
 					let content = data[i]['content']['rendered'];
 					if (data[i]['original_content'].length){
@@ -100,7 +104,8 @@ export class WpProvider {
 						content: content,
 						image: img,
 						date: data[i].date,
-						link: data[i].link
+						link: data[i].link,
+						app_link: app_link
 					});
 
 					this.posts.push({
@@ -110,7 +115,8 @@ export class WpProvider {
 						content: content,
 						image: img,
 						date: data[i].date,
-						link: data[i].link
+						link: data[i].link,
+						app_link: app_link
 					});
 
 				}
@@ -161,6 +167,8 @@ export class WpProvider {
 					content = data['original_content'][0];
 				}
 
+				let app_link = data['app_link'];
+
 				this.post = {
 					id: data['id'],
 					title: data['title'].rendered,
@@ -168,7 +176,8 @@ export class WpProvider {
 					content: content,
 					image: img,
 					date: data.date,
-					link: data.link
+					link: data.link,
+					app_link: app_link
 				};
 
 				

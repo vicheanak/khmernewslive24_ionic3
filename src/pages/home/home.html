@@ -14,11 +14,10 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
   <ion-card class="my-card card" no-padding *ngFor="let post of posts">
       <div (click)="pushDetail(post.id)">
       <img [src]="post?.image" *ngIf="post?.image"/>
-    
+      
       <ion-card-content>
         <ion-card-title style="font-size:18px; line-height: 1.5;" text-wrap [innerHtml]="post.title">
         </ion-card-title>
@@ -27,14 +26,13 @@
     
     <ion-row no-padding>
       <ion-col text-left>
-        <button ion-button clear>
-          {{post?.date | timeAgo}}
+        <button ion-button clear (click)="copy(post)">
+          <ion-icon name='md-copy'></ion-icon> Copy
         </button>
       </ion-col>
       <ion-col text-right>
         <button ion-button clear (click)="shareFacebook(post)">
-          <ion-icon name='logo-facebook'></ion-icon>
-           share
+          <ion-icon name='logo-facebook'></ion-icon> Share
         </button>
       </ion-col>
     </ion-row>
