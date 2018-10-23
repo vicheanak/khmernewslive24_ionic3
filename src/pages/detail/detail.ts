@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { WpProvider } from '../../providers/wp/wp';
 import { SocialSharing } from '@ionic-native/social-sharing';
-
+import { Clipboard } from '@ionic-native/clipboard';
 
 @Component({
   selector: 'page-detail',
@@ -17,7 +17,8 @@ export class DetailPage {
   	private socialSharing: SocialSharing, 
   	public navCtrl: NavController, 
   	public navParams: NavParams,
-  	public alertCtrl: AlertController) {
+  	public alertCtrl: AlertController,
+    private clipboard: Clipboard) {
 
   }
 
@@ -27,12 +28,17 @@ export class DetailPage {
 
   async shareFacebook(post){
 		
-  	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
+  	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
   	});
 
 
   }
+
+  async copy(post){
+    this.clipboard.copy(post.app_link);
+  }
+
 
   async presentAlert(msg, subtitle) {
 		const alert = await this.alertCtrl.create({

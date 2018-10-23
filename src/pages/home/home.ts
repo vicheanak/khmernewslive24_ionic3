@@ -158,7 +158,7 @@ export class HomePage {
     	if (this.platform.is('ios')) {
     		appName = 'com.apple.social.facebook'
     	}
-    	this.presentAlert('app_link', post.app_link);
+    	
     	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
     	}).catch((err) => {
