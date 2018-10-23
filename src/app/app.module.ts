@@ -40,6 +40,8 @@ import { BranchIo } from '@ionic-native/branch-io';
 
 import { Clipboard } from '@ionic-native/clipboard';
 
+import { Toast } from '@ionic-native/toast';
+
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
   authDomain: "khmer-news-live-24.firebaseapp.com",
@@ -114,7 +116,8 @@ export class MyErrorHandler implements ErrorHandler {
     WpProvider,
     AppAvailability,
     BranchIo,
-    Clipboard
+    Clipboard,
+    Toast
   ]
 })
 export class AppModule {}

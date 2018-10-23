@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { WpProvider } from '../../providers/wp/wp';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Clipboard } from '@ionic-native/clipboard';
+import { Toast } from '@ionic-native/toast';
 
 @Component({
   selector: 'page-detail',
@@ -18,7 +19,8 @@ export class DetailPage {
   	public navCtrl: NavController, 
   	public navParams: NavParams,
   	public alertCtrl: AlertController,
-    private clipboard: Clipboard) {
+    private clipboard: Clipboard,
+    private toast: Toast) {
 
   }
 
@@ -37,6 +39,11 @@ export class DetailPage {
 
   async copy(post){
     this.clipboard.copy(post.app_link);
+    this.toast.show('កូពី', '1500', 'center').subscribe(
+      toast => {
+        
+      }
+    );
   }
 
 

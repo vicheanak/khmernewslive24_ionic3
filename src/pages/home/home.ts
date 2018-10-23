@@ -6,7 +6,7 @@ import {DetailPage} from '../../pages/detail/detail';
 import {ContactPage} from '../../pages/contact/contact';
 import { BranchIo } from '@ionic-native/branch-io';
 import { Clipboard } from '@ionic-native/clipboard';
-
+import { Toast } from '@ionic-native/toast';
 
 import { Pro } from '@ionic/pro';
 
@@ -30,7 +30,15 @@ export class HomePage {
 	public isReady: boolean = false;
 	public debug: any;
 
-	constructor(private clipboard: Clipboard, private branch: BranchIo, private wpProvider: WpProvider, public navParams: NavParams, private platform: Platform, public alertController: AlertController, private socialSharing: SocialSharing, public navCtrl: NavController) {
+	constructor(private toast: Toast, 
+		private clipboard: Clipboard, 
+		private branch: BranchIo, 
+		private wpProvider: WpProvider, 
+		public navParams: NavParams, 
+		private platform: Platform, 
+		public alertController: AlertController, 
+		private socialSharing: SocialSharing, 
+		public navCtrl: NavController) {
 
 		this.categoryId = navParams.get('categoryId');
 		
@@ -151,6 +159,11 @@ export class HomePage {
 
 	copy(post){
 		this.clipboard.copy(post.app_link);
+		this.toast.show('កូពី', '1500', 'center').subscribe(
+		  toast => {
+		    
+		  }
+		);
 	}
 
     shareFacebook(post) {
