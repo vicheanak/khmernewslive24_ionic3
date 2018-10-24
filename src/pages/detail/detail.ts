@@ -4,6 +4,7 @@ import { WpProvider } from '../../providers/wp/wp';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
+import {HomePage} from '../../pages/home/home';
 
 @Component({
   selector: 'page-detail',
@@ -39,7 +40,7 @@ export class DetailPage {
 
   async copy(post){
     
-    this.clipboard.copy(post.title + ' ' + post.app_link);
+    this.clipboard.copy(post.title + ' - ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
     this.toast.show('Copied...', '1500', 'center').subscribe(
       toast => {
         
@@ -59,7 +60,12 @@ export class DetailPage {
 	}
 
   goBack(){
-    this.navCtrl.pop();
+    this.navCtrl.pop().then(() => {
+
+    }).catch(() => {
+      this.navCtrl.setRoot(HomePage);  
+    });
+    
   }
 
   ionViewWillEnter(){
