@@ -42,6 +42,8 @@ import { Clipboard } from '@ionic-native/clipboard';
 
 import { Toast } from '@ionic-native/toast';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
   authDomain: "khmer-news-live-24.firebaseapp.com",
@@ -90,6 +92,7 @@ export class MyErrorHandler implements ErrorHandler {
     AngularFireModule.initializeApp(firebase), 
     AngularFirestoreModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     PipesModule
   ],
   bootstrap: [IonicApp],

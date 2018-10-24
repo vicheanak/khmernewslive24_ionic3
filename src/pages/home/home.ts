@@ -9,7 +9,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
 
 import { Pro } from '@ionic/pro';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
 	selector: 'page-home',
@@ -24,7 +24,7 @@ export class HomePage {
 	public categoryId: any = "";
 	public pageTitle: any = "";
 	
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; app_link: string }> = [];
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; app_link: string; is_saved: boolean }> = [];
 	public morePagesAvailable: Boolean;
 	private page: number = 1;
 	public isReady: boolean = false;
@@ -38,7 +38,8 @@ export class HomePage {
 		private platform: Platform, 
 		public alertController: AlertController, 
 		private socialSharing: SocialSharing, 
-		public navCtrl: NavController) {
+		public navCtrl: NavController,
+		private storage: Storage) {
 
 		this.categoryId = navParams.get('categoryId');
 		
@@ -72,6 +73,48 @@ export class HomePage {
 
 	}
 
+	save(post){
+
+		this.storage.get('saved_articles').then((val) => {
+			// this.storage.set('name', 'Max');
+			// JSON.stringify()
+
+			let prev_vals = JSON.parse(val);
+			let new_vals = [];
+			if (prev_vals){
+				// or pop or push;
+				let is_matched = false;
+				for(let i = 0; i < prev_vals.length; i ++){
+					if (prev_vals[i] == post.id){
+						is_matched = true;
+					}
+				}
+				if (is_matched){
+					prev_vals = prev_vals.filter(function(ele){
+				       return ele != post.id;
+				   	});
+				   	post.is_saved = false;
+				   	this.presentAlert('article EXIST - POP ID', JSON.stringify(prev_vals));
+				}
+				else{
+					prev_vals.push(post.id);
+					post.is_saved = true;
+					this.presentAlert('article NOT EXIST - PUSH ID', JSON.stringify(prev_vals));
+				}
+				this.storage.set('saved_articles', JSON.stringify(prev_vals));
+				
+			}
+			else{
+				new_vals.push(post.id);
+				this.presentAlert('article NEVER EXIST - PUSH ID', JSON.stringify(new_vals));
+				post.is_saved = true;
+				this.storage.set('saved_articles', JSON.stringify(new_vals));
+			}
+
+			
+		});
+		
+	}
 	
 
 	doRefresh(refresher){

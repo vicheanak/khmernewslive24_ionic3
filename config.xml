@@ -112,5 +112,6 @@
     </plugin>
     <plugin name="cordova-clipboard" spec="1.2.1" />
     <plugin name="cordova-plugin-x-toast" spec="2.7.0" />
+    <plugin name="cordova-sqlite-storage" spec="2.5.0" />
     <engine name="android" spec="7.1.1" />
 </widget>
