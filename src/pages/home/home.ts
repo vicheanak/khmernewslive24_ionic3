@@ -95,19 +95,19 @@ export class HomePage {
 				       return ele != post.id;
 				   	});
 				   	post.is_saved = false;
-				   	this.presentAlert('article EXIST - POP ID', JSON.stringify(prev_vals));
+				   	// this.presentAlert('article EXIST - POP ID', JSON.stringify(prev_vals));
 				}
 				else{
 					prev_vals.push(post.id);
 					post.is_saved = true;
-					this.presentAlert('article NOT EXIST - PUSH ID', JSON.stringify(prev_vals));
+					// this.presentAlert('article NOT EXIST - PUSH ID', JSON.stringify(prev_vals));
 				}
 				this.storage.set('saved_articles', JSON.stringify(prev_vals));
 				
 			}
 			else{
 				new_vals.push(post.id);
-				this.presentAlert('article NEVER EXIST - PUSH ID', JSON.stringify(new_vals));
+				// this.presentAlert('article NEVER EXIST - PUSH ID', JSON.stringify(new_vals));
 				post.is_saved = true;
 				this.storage.set('saved_articles', JSON.stringify(new_vals));
 			}

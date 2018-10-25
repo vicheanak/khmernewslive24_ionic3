@@ -40,9 +40,9 @@ export class WpProvider {
 		this.posts = [];
 		this.storage.get('saved_articles').then((val) => {
 			this.saved_articles = JSON.parse(val);
-			this.presentAlert('Save Articles: ', this.saved_articles);	
+				
 			for (let k = 0; k < this.saved_articles.length; k ++){
-				this.presentAlert('save k ', this.saved_articles[k]);
+				
 			}	
 		});
 		return new Promise((resolve, reject) => {
@@ -73,7 +73,7 @@ export class WpProvider {
 
 					for (let j=0; j < this.saved_articles.length; j ++){
 						if (this.saved_articles[j] == data[i]['id']){
-							this.presentAlert('saved: '+this.saved_articles[j], 'data: '+ data[i]['id'])
+							
 							is_saved = true;
 						}
 					}
@@ -107,10 +107,10 @@ export class WpProvider {
 				let posts = [];
 				
 				this.storage.get('saved_articles').then((val) => {
-					if (val){
-						this.presentAlert('getPosts', val);
+					
+						
 						this.saved_articles = JSON.parse(val);	
-					}
+					
 				});
 
 				for (let i = 0; i < data.length; i++) {
