@@ -54,7 +54,7 @@ const firebase = {
   messagingSenderId: "1092261335543"
 }
 
-Pro.init('4dc427d8wrong', {
+Pro.init('4dc427d8', {
   appVersion: '0.0.4'
 })
 
@@ -94,7 +94,10 @@ export class MyErrorHandler implements ErrorHandler {
     AngularFireModule.initializeApp(firebase), 
     AngularFirestoreModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
+    IonicStorageModule.forRoot({
+      name: '__khmernewslive',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     PipesModule
   ],
   bootstrap: [IonicApp],

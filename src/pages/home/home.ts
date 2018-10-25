@@ -75,46 +75,21 @@ export class HomePage {
 	}
 
 	save(post){
-
-		this.storage.get('saved_articles').then((val) => {
-			// this.storage.set('name', 'Max');
-			// JSON.stringify()
-
-			let prev_vals = JSON.parse(val);
-			let new_vals = [];
-			if (prev_vals){
-				// or pop or push;
-				let is_matched = false;
-				for(let i = 0; i < prev_vals.length; i ++){
-					if (prev_vals[i] == post.id){
-						is_matched = true;
-					}
-				}
-				if (is_matched){
-					prev_vals = prev_vals.filter(function(ele){
-				       return ele != post.id;
-				   	});
-				   	post.is_saved = false;
-				   	// this.presentAlert('article EXIST - POP ID', JSON.stringify(prev_vals));
+		if (this.storage.length()){
+			this.storage.get(post.id).then((val) => {
+				if (val){
+					post.is_saved = false;	
+					this.storage.remove(post.id);
 				}
 				else{
-					prev_vals.push(post.id);
 					post.is_saved = true;
-					// this.presentAlert('article NOT EXIST - PUSH ID', JSON.stringify(prev_vals));
+					this.storage.set(post.id, JSON.stringify(post));
 				}
-				this.storage.set('saved_articles', JSON.stringify(prev_vals));
-				
-			}
-			else{
-				new_vals.push(post.id);
-				// this.presentAlert('article NEVER EXIST - PUSH ID', JSON.stringify(new_vals));
-				post.is_saved = true;
-				this.storage.set('saved_articles', JSON.stringify(new_vals));
-			}
-
-			
-		});
-		
+			});
+		}
+		else{
+			this.storage.set(post.id, JSON.stringify(post));
+		}	
 	}
 	
 
