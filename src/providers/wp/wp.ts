@@ -38,17 +38,19 @@ export class WpProvider {
 
 	refresh(category_id): Promise<any[]> {
 		this.posts = [];
+		this.storage.get('saved_articles').then((val) => {
+			this.saved_articles = JSON.parse(val);
+			this.presentAlert('Save Articles: ', this.saved_articles);	
+			for (let k = 0; k < this.saved_articles.length; k ++){
+				this.presentAlert('save k ', this.saved_articles[k]);
+			}	
+		});
 		return new Promise((resolve, reject) => {
 			this.wp.posts().categories(category_id).then( (data) => {
 
 				// this.storage.clear();
 				
-				this.storage.get('saved_articles').then((val) => {
-					this.presentAlert('refresh_article', val);
-					if (val){
-						this.saved_articles = JSON.parse(val);	
-					}
-				});
+				
 				
 				for (let i = 0; i < data.length; i++) {
 					let img = '';
@@ -71,6 +73,7 @@ export class WpProvider {
 
 					for (let j=0; j < this.saved_articles.length; j ++){
 						if (this.saved_articles[j] == data[i]['id']){
+							this.presentAlert('saved: '+this.saved_articles[j], 'data: '+ data[i]['id'])
 							is_saved = true;
 						}
 					}

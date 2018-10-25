@@ -62,6 +62,7 @@ export class HomePage {
 		
 		this.posts = [];
 		this.wpProvider.refresh(this.categoryId).then((posts) => {
+
 			for(let post of posts){
 				this.posts.push(post);
 			}
