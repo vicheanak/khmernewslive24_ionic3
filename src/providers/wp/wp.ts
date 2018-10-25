@@ -39,11 +39,12 @@ export class WpProvider {
 	refresh(category_id): Promise<any[]> {
 		this.posts = [];
 		this.storage.get('saved_articles').then((val) => {
-			this.saved_articles = JSON.parse(val);
+
+			if (val){
+				this.saved_articles = JSON.parse(val);	
+			}
+			
 				
-			for (let k = 0; k < this.saved_articles.length; k ++){
-				
-			}	
 		});
 		return new Promise((resolve, reject) => {
 			this.wp.posts().categories(category_id).then( (data) => {
@@ -70,13 +71,15 @@ export class WpProvider {
 					let is_saved = false;
 
 					
-
-					for (let j=0; j < this.saved_articles.length; j ++){
-						if (this.saved_articles[j] == data[i]['id']){
-							
-							is_saved = true;
-						}
+					if (this.saved_articles){
+						for (let j=0; j < this.saved_articles.length; j ++){
+							if (this.saved_articles[j] == data[i]['id']){
+								
+								is_saved = true;
+							}
+						}	
 					}
+					
 
 					this.posts.push({
 						id: data[i]['id'],
@@ -108,8 +111,10 @@ export class WpProvider {
 				
 				this.storage.get('saved_articles').then((val) => {
 					
+						if (val){
+							this.saved_articles = JSON.parse(val);		
+						}
 						
-						this.saved_articles = JSON.parse(val);	
 					
 				});
 
@@ -219,11 +224,14 @@ export class WpProvider {
 
 				let is_saved = false;
 
-				for (let j=0; j < this.saved_articles.length; j ++){
-					if (this.saved_articles[j] == data['id']){
-						is_saved = true;
-					}
+				if (this.saved_articles){
+					for (let j=0; j < this.saved_articles.length; j ++){
+						if (this.saved_articles[j] == data['id']){
+							is_saved = true;
+						}
+					}	
 				}
+				
 
 				this.post = {
 					id: data['id'],
@@ -244,6 +252,85 @@ export class WpProvider {
 			}).catch(function( err ) {
 				this.presentAlert('Error', err);
 			});
+		});
+	}
+
+	getSavePost(): Promise<any[]> {
+		
+		
+		this.saved_articles = [];
+		this.posts = [];
+		let posts = [];
+
+		this.storage.get('saved_articles').then((val) => {
+			if (val){
+				this.saved_articles = JSON.parse(val);	
+			}
+		});
+
+
+		return new Promise((resolve, reject) => {
+			if (this.saved_articles){
+				this.wp.posts().param( 'id', this.saved_articles).then((data) => {
+					for (let i = 0; i < data.length; i++) {
+						let img = '';
+
+						if (data[i]._embedded['wp:featuredmedia']){
+							img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
+						}
+
+						let app_link = data[i]['app_link'];
+						
+						let content = data[i]['the_content'];
+						if (data[i]['original_content'].length){
+							content = data[i]['original_content'][0];
+						}
+
+						let is_saved = false;
+						
+
+						for (let j=0; j < this.saved_articles.length; j ++){
+							if (this.saved_articles[j] == data[i]['id']){
+								is_saved = true;
+							}
+						}
+
+
+
+						posts.push({
+							id: data[i]['id'],
+							title: data[i]['title'].rendered,
+							category: data[i]['category_name'][0],
+							content: content,
+							image: img,
+							date: data[i].date,
+							link: data[i].link,
+							app_link: app_link,
+							is_saved: is_saved
+						});
+
+						this.posts.push({
+							id: data[i]['id'],
+							title: data[i]['title'].rendered,
+							category: data[i]['category_name'][0],
+							content: content,
+							image: img,
+							date: data[i].date,
+							link: data[i].link,
+							app_link: app_link,
+							is_saved: is_saved
+						});
+
+					}
+					
+					resolve(posts);
+				});
+			
+			}
+			else{
+				resolve(posts);
+			}
+			
 		});
 	}
 

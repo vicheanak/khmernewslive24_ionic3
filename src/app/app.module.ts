@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { ContactPage } from '../pages/contact/contact';
 import { DetailPage } from '../pages/detail/detail';
+import { SavePage } from '../pages/save/save';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -53,8 +54,8 @@ const firebase = {
   messagingSenderId: "1092261335543"
 }
 
-Pro.init('4dc427d8', {
-  appVersion: '0.0.1'
+Pro.init('4dc427d8wrong', {
+  appVersion: '0.0.4'
 })
 
 @Injectable()
@@ -86,6 +87,7 @@ export class MyErrorHandler implements ErrorHandler {
     DetailPage,
     ContactPage,
     TimeAgoPipe,
+    SavePage,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ export class MyErrorHandler implements ErrorHandler {
     HomePage,
     ListPage,
     DetailPage,
-    ContactPage
+    ContactPage,
+    SavePage
   ],
   providers: [
     StatusBar,

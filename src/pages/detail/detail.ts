@@ -40,7 +40,7 @@ export class DetailPage {
 
   async copy(post){
     
-    this.clipboard.copy(post.title + ' - ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
+    this.clipboard.copy(post.title + ' ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
     this.toast.show('Copied...', '1500', 'center').subscribe(
       toast => {
         

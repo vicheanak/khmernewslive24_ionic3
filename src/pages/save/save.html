@@ -1,0 +1,49 @@
+<!--
+  Generated template for the ContactPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="danger">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>ចំណាំ អត្ថបទ</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+	<img class="logo" src="../assets/loading.gif" *ngIf="isReady == false"/>
+
+	<ion-card class="my-card card" no-padding *ngFor="let post of posts">
+      <div (click)="pushDetail(post.id)">
+      <img [src]="post?.image" *ngIf="post?.image"/>
+      
+      <ion-card-content style="margin: 0px; padding: 0px;">
+        <ion-card-title style="font-size:18px; font-weight: bold; line-height: 1.5; margin: 0px; padding: 5px;" text-wrap [innerHtml]="post.title">
+        </ion-card-title>
+      </ion-card-content>
+    </div>
+    
+    <ion-row no-padding>
+      <ion-col text-left style="margin: 0px; padding: 0px;">
+        <button ion-button clear large (click)="copy(post)">
+          <ion-icon name='md-copy'></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col text-center style="margin: 0px; padding: 0px;">
+        <button ion-button clear large (click)="save(post)">
+          <ion-icon name='{{post?.is_saved ? "ios-bookmark" : "ios-bookmark-outline"}}'></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col text-right style="margin: 0px; padding: 0px;">
+        <button ion-button clear large (click)="shareFacebook(post)">
+          <ion-icon name='logo-facebook'></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+</ion-content>

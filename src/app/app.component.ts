@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { DetailPage } from '../pages/detail/detail';
+import { SavePage } from '../pages/save/save';
 
 import { FcmProvider } from '../providers/fcm/fcm';
 
@@ -20,9 +21,6 @@ import { BranchIo } from '@ionic-native/branch-io';
 
 // import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
-Pro.init('2bd9848f', {
-  appVersion: '0.0.26'
-})
 
 
 @Component({
@@ -167,10 +165,13 @@ export class MyApp {
     }
 
 
-    this.admob.prepareRewardVideoAd({adId: videoAd})
-    .then(() => { 
-      this.admob.showRewardVideoAd(); 
-    });
+    setTimeout(() => {
+      this.admob.prepareRewardVideoAd({adId: videoAd})
+      .then(() => { 
+        this.admob.showRewardVideoAd(); 
+      });  
+    }, 60000);
+    
     
 
     this.admob.createBanner({adId: bannerAd})
@@ -268,6 +269,10 @@ export class MyApp {
 
   pushContact(){
     this.nav.setRoot(ContactPage);
+  }
+
+  pushSavePage(){
+    this.nav.setRoot(SavePage);
   }
 
 }
