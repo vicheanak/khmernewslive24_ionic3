@@ -12,7 +12,7 @@
 
 <ion-content padding>
 
-	<img [src]="post?.image" *ngIf="post?.image"/>
+	<img [src]="post?.image" *ngIf="post?.image" (click)="openImage(post?.image)"/>
 
 	
 		<div class="title" style="font-size:18px; font-weight: bold; line-height: 1.5;" [innerHtml]="post?.title"></div>
@@ -33,7 +33,10 @@
 	        </button>
 	      </ion-col>
 	    </ion-row>
-		<div style="font-size:16px" class="content" [innerHtml]="post?.content | safeHtml"></div>
+		<p style="font-size:16px" class="content" *ngFor="let p of post?.contents">
+			{{p}}
+		</p>
+		<img [src]="img" *ngFor="let img of post?.imgs" (click)="openImage(img)" />
 		<!-- <div style="font-size:16px" class="content">{{post?.content | safeHtml}}</div> -->
 	
 

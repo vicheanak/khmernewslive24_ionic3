@@ -41,7 +41,7 @@ export class WpProvider {
 
 
 		return new Promise((resolve, reject) => {
-			this.wp.posts().categories(category_id).then( (data) => {
+			this.wp.posts().perPage(20).categories(category_id).then( (data) => {
 
 				this.posts = [];
 				let posts = [];
@@ -68,11 +68,11 @@ export class WpProvider {
 							
 							let app_link = data[i]['app_link'];
 
-							let content = data[i]['the_content'];
-
-							if (data[i]['original_content'].length){
-								content = data[i]['original_content'][0];
-							}
+							// let content = data[i]['the_content'];
+							let content = '';
+							// if (data[i]['original_content'].length){
+								// content = data[i]['original_content'][0];
+							// }
 
 							let post = {
 								id: data[i]['id'],
@@ -119,10 +119,19 @@ export class WpProvider {
 
 	getPosts(page, category_id = null): Promise<any[]> {
 		return new Promise((resolve, reject) => {
-			this.wp.posts().page(page).categories(category_id).then( (data) => {
+			this.wp.posts().perPage(20).page(page).categories(category_id).then( (data) => {
 				
-				let posts = [];
+				
 				this.storage.keys().then((val) => {
+
+
+					let posts = [];
+
+					this.keys = [];	
+						
+					for (let i = 0; i < val.length; i ++){
+						this.keys.push(val[i]);
+					}
 
 					for (let i = 0; i < data.length; i++) {
 						let img = '';
@@ -133,10 +142,13 @@ export class WpProvider {
 
 						let app_link = data[i]['app_link'];
 						
-						let content = data[i]['the_content'];
-						if (data[i]['original_content'].length){
-							content = data[i]['original_content'][0];
-						}
+						// let content = data[i]['the_content'];
+						let content = '';
+						// if (data[i]['original_content'].length){
+							// content = data[i]['original_content'][0];
+						// }
+
+
 
 						let is_saved = false;
 
@@ -159,7 +171,7 @@ export class WpProvider {
 								
 								post.is_saved = true;
 								break;
-								
+
 							}
 						}
 
@@ -169,10 +181,11 @@ export class WpProvider {
 						this.posts.push(post);
 
 					}
+					resolve(posts);
 
 				});
 				
-				resolve(posts);
+				
 
 			}).catch(function( err ) {
 				// handle error
@@ -208,7 +221,7 @@ export class WpProvider {
 		return new Promise((resolve, reject) => {
 
 
-			this.wp.posts().id(id).then( (data) => {
+			this.wp.posts().perPage(1).id(id).then( (data) => {
 				
 				let img = '';
 
@@ -216,11 +229,17 @@ export class WpProvider {
 					img = data._embedded['wp:featuredmedia']['0'].source_url;
 				}
 
-				let content = data['the_content'];
+				let content = data['content'].rendered;
 
-				if (data['original_content'].length){
-					content = data['original_content'][0];
-				}
+				// this.presentAlert('content', JSON.stringify(content));
+				
+
+				// if (data['original_content'].length){
+				// 	content = data['original_content'][0];
+				// }
+
+
+				
 
 				let app_link = data['app_link'];
 

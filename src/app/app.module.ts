@@ -44,6 +44,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
@@ -126,7 +127,8 @@ export class MyErrorHandler implements ErrorHandler {
     AppAvailability,
     BranchIo,
     Clipboard,
-    Toast
+    Toast,
+    PhotoViewer
   ]
 })
 export class AppModule {}

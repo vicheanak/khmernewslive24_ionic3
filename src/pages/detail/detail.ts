@@ -6,6 +6,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
 import {HomePage} from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @Component({
   selector: 'page-detail',
@@ -23,7 +24,8 @@ export class DetailPage {
   	public alertCtrl: AlertController,
     private clipboard: Clipboard,
     private toast: Toast,
-    private storage: Storage) {
+    private storage: Storage,
+    private photoViewer: PhotoViewer) {
 
   }
 
@@ -89,63 +91,64 @@ export class DetailPage {
     }  
   }
 
+  openImage(img){
+    let options = {
+        share: true, // default is false
+        copyToReference: true // default is false
+    };
+    this.photoViewer.show(img, '', options);  
+  }
+
   ionViewWillEnter(){
   	let postId = this.navParams.get('id');
 
 
-  	this.wpProvider.getPost(postId).then((post) => {
+  	this.wpProvider.getSinglePost(postId).then((post) => {
         this.post = post;
-        let regex = new RegExp(/<([^\s]+).*?src="([^"]*?)".*?>(.+?)<\/\1>/gi);
+        this.post.contents = [];
+        this.post.imgs = [];
+        // let regex = new RegExp(/<([^\s]+).*?src="([^"]*?)".*?>(.+?)<\/\1>/gi);
 
         // this.presentAlert('content', this.post.content);
 
-        // let matches = this.post.content.match(/<p>.*?<\/p>/g);
-        let matches = this.post.content.match(/<p>[\S\s]*?<\/p>/gi);
+        
+        // let matches = this.post.content.match(/<p>[\S\s]*?<\/p>/gi);
         // this.presentAlert('result P', JSON.stringify(matches));
+        
+        let tmpP = document.createElement('div');
+        tmpP.innerHTML = this.post.content;
+        let pSrc = tmpP.getElementsByTagName('p');
+        let pSrcs = [];
+        for (let i=0, iLen=pSrc.length; i<iLen; i++) {
+          this.post.contents[i] = pSrc[i].innerText;
+        }
+         
+
+
         let tmp = document.createElement('div');
         tmp.innerHTML = this.post.content;
         let imgSrc = tmp.getElementsByTagName('img');
         let imgSrcs = [];
         for (let i=0, iLen=imgSrc.length; i<iLen; i++) {
-          imgSrcs[i] = imgSrc[i].src;
+          this.post.imgs[i] = imgSrc[i].src;
         }
-        
-
-        // let matchesSrc = this.post.content.match(/<img [^>]*src="[^"]*"[^>]*>/gm);
-        // .map(x => x.replace(/.*src="([^"]*)".*/, '$1');
-        // this.presentAlert('result P', JSON.stringify(imgSrcs));
-
-
-        // let results = {};
-        // for (let i in matches) {
-        //     let parts = regex.exec(matches[i]);
-        //     results[parts[2]] = parts[3];
-        // }
-
-        
-
-        // let str = "<img alt='' src='http://api.com/images/UID' /><br/>Some plain text<br/><a href='http://www.google.com'>http://www.google.com</a>";
-
-        
-
-        
-        
-        
-
+         
         
         
     });
 
+
+
     
 
     
 
 
-  	if (!this.post){
-  		this.wpProvider.getSinglePost(postId).then(post => {
-  			this.post = post;
-  		});
-  	}
+  	// if (!this.post){
+  	// 	this.wpProvider.getSinglePost(postId).then(post => {
+  	// 		this.post = post;
+  	// 	});
+  	// }
 
     
 
