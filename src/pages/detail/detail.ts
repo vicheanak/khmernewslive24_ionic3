@@ -42,12 +42,13 @@ export class DetailPage {
 
   async copy(post){
     
-    this.clipboard.copy(post.title + ' ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
+    this.clipboard.copy(post.title + '\n\n>>> ដោនឡូត Khmer News Live ក្នុង Play Store ឥឡូវនេះ FREE!!! \n' + post.app_link);
     this.toast.show('Copied...', '1500', 'center').subscribe(
       toast => {
         
       }
     );
+
   }
 
 
@@ -92,13 +93,61 @@ export class DetailPage {
   	let postId = this.navParams.get('id');
 
 
-  	this.post = this.wpProvider.getPost(postId);
+  	this.wpProvider.getPost(postId).then((post) => {
+        this.post = post;
+        let regex = new RegExp(/<([^\s]+).*?src="([^"]*?)".*?>(.+?)<\/\1>/gi);
+
+        // this.presentAlert('content', this.post.content);
+
+        // let matches = this.post.content.match(/<p>.*?<\/p>/g);
+        let matches = this.post.content.match(/<p>[\S\s]*?<\/p>/gi);
+        // this.presentAlert('result P', JSON.stringify(matches));
+        let tmp = document.createElement('div');
+        tmp.innerHTML = this.post.content;
+        let imgSrc = tmp.getElementsByTagName('img');
+        let imgSrcs = [];
+        for (let i=0, iLen=imgSrc.length; i<iLen; i++) {
+          imgSrcs[i] = imgSrc[i].src;
+        }
+        
+
+        // let matchesSrc = this.post.content.match(/<img [^>]*src="[^"]*"[^>]*>/gm);
+        // .map(x => x.replace(/.*src="([^"]*)".*/, '$1');
+        // this.presentAlert('result P', JSON.stringify(imgSrcs));
+
+
+        // let results = {};
+        // for (let i in matches) {
+        //     let parts = regex.exec(matches[i]);
+        //     results[parts[2]] = parts[3];
+        // }
+
+        
+
+        // let str = "<img alt='' src='http://api.com/images/UID' /><br/>Some plain text<br/><a href='http://www.google.com'>http://www.google.com</a>";
+
+        
+
+        
+        
+        
+
+        
+        
+    });
+
+    
+
+    
+
 
   	if (!this.post){
   		this.wpProvider.getSinglePost(postId).then(post => {
   			this.post = post;
   		});
   	}
+
+    
 
   }
 

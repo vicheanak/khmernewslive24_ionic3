@@ -43,14 +43,14 @@ export class WpProvider {
 		return new Promise((resolve, reject) => {
 			this.wp.posts().categories(category_id).then( (data) => {
 
-				// this.storage.clear();
-				
-				
+				this.posts = [];
+				let posts = [];
 				
 				this.storage.ready().then(() => {
 					this.storage.keys().then((val) => {
-						this.posts = [];
+						
 						this.keys = [];	
+						
 
 
 						for (let i = 0; i < val.length; i ++){
@@ -86,6 +86,7 @@ export class WpProvider {
 								is_saved: false
 							}
 							
+
 							
 							for (let i = 0; i < this.keys.length; i ++){
 								// this.presentAlert('key id true/false ', this.keys[i] + " == " + data[i]['id']);
@@ -96,7 +97,7 @@ export class WpProvider {
 								}
 							}
 							
-							
+							posts.push(post);
 							this.posts.push(post);	
 							
 
@@ -104,7 +105,7 @@ export class WpProvider {
 
 						}
 
-						resolve(this.posts);
+						resolve(posts);
 
 					});
 				})
@@ -121,59 +122,55 @@ export class WpProvider {
 			this.wp.posts().page(page).categories(category_id).then( (data) => {
 				
 				let posts = [];
+				this.storage.keys().then((val) => {
 
-				for (let i = 0; i < data.length; i++) {
-					let img = '';
+					for (let i = 0; i < data.length; i++) {
+						let img = '';
 
-					if (data[i]._embedded['wp:featuredmedia']){
-						img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
-					}
+						if (data[i]._embedded['wp:featuredmedia']){
+							img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
+						}
 
-					let app_link = data[i]['app_link'];
-					
-					let content = data[i]['the_content'];
-					if (data[i]['original_content'].length){
-						content = data[i]['original_content'][0];
-					}
+						let app_link = data[i]['app_link'];
+						
+						let content = data[i]['the_content'];
+						if (data[i]['original_content'].length){
+							content = data[i]['original_content'][0];
+						}
 
-					let is_saved = false;
-					
+						let is_saved = false;
 
-					if (this.storage.length()){
-						this.storage.forEach( (value, key, index) => {
-							if (key == data[i]['id']){
-								is_saved = true;
+						let post = {
+							id: data[i]['id'],
+							title: data[i]['title'].rendered,
+							category: data[i]['category_name'][0],
+							content: content,
+							image: img,
+							date: data[i].date,
+							link: data[i].link,
+							app_link: app_link,
+							is_saved: is_saved
+						};
+
+
+						for (let i = 0; i < this.keys.length; i ++){
+							// this.presentAlert('key id true/false ', this.keys[i] + " == " + data[i]['id']);
+							if (this.keys[i] == data[i]['id']){
+								
+								post.is_saved = true;
+								break;
+								
 							}
-						});
+						}
+
+
+						posts.push(post);
+
+						this.posts.push(post);
+
 					}
 
-
-
-					posts.push({
-						id: data[i]['id'],
-						title: data[i]['title'].rendered,
-						category: data[i]['category_name'][0],
-						content: content,
-						image: img,
-						date: data[i].date,
-						link: data[i].link,
-						app_link: app_link,
-						is_saved: is_saved
-					});
-
-					this.posts.push({
-						id: data[i]['id'],
-						title: data[i]['title'].rendered,
-						category: data[i]['category_name'][0],
-						content: content,
-						image: img,
-						date: data[i].date,
-						link: data[i].link,
-						app_link: app_link,
-						is_saved: is_saved
-					});
-
-				}
+				});
 				
 				resolve(posts);
 
@@ -194,11 +191,15 @@ export class WpProvider {
 		await alert.present();
 	}
 
-	getPost(id): Post {
+	getPost(id): Promise<Post> {
 		
-		const post = this.posts.find(post => post.id == id);
-	
-		return post;
+		return new Promise((resolve, reject) => {
+
+			const post = this.posts.find(post => post.id == id);
+		
+			resolve(post);
+
+		});
 		
 	}
 
@@ -206,11 +207,6 @@ export class WpProvider {
 		
 		return new Promise((resolve, reject) => {
 
-			this.storage.get('saved_articles').then((val) => {
-				if (val){
-					this.saved_articles = JSON.parse(val);	
-				}
-			});
 
 			this.wp.posts().id(id).then( (data) => {
 				
@@ -249,8 +245,6 @@ export class WpProvider {
 					app_link: app_link,
 					is_saved: is_saved
 				};
-
-				
 
 				resolve(this.post);
 

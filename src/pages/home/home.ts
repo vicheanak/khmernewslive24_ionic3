@@ -11,6 +11,7 @@ import { Toast } from '@ionic-native/toast';
 import { Pro } from '@ionic/pro';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
 	selector: 'page-home',
 	templateUrl: 'home.html'
@@ -60,14 +61,14 @@ export class HomePage {
 			}
 		}
 
-		this.wpProvider.refresh(this.categoryId).then((posts) => {
-
-			this.posts = posts;
-
-			
-			this.isReady = true;
-			
+		this.storage.ready().then(() => {
+			this.wpProvider.refresh(this.categoryId).then((posts) => {
+				this.posts = posts;	
+				this.isReady = true;
+			});	
 		});
+
+		
 		
 
 	}
@@ -179,7 +180,7 @@ export class HomePage {
 
 
 	copy(post){
-		this.clipboard.copy(post.title + ' ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
+		this.clipboard.copy(post.title + '\n\n>>> ដោនឡូត Khmer News Live ក្នុង Play Store ឥឡូវនេះ FREE!!! \n' + post.app_link);
 		this.toast.show('Copied...', '1500', 'center').subscribe(
 		  toast => {
 		    

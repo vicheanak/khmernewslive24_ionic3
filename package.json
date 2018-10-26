@@ -30,15 +30,18 @@
     "@ionic-native/device": "^4.16.0",
     "@ionic-native/firebase": "^4.16.0",
     "@ionic-native/in-app-browser": "^4.16.0",
+    "@ionic-native/photo-viewer": "^4.16.0",
     "@ionic-native/social-sharing": "^4.16.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic-native/toast": "^4.16.0",
     "@ionic/pro": "^2.0.3",
     "@ionic/storage": "^2.2.0",
+    "@types/jquery": "^3.3.22",
     "angularfire2": "^5.0.2",
     "branch-cordova-sdk": "~2.6.24",
     "call-number": "1.0.1",
+    "com-sarriaroman-photoviewer": "1.1.18",
     "cordova": "8.1.2",
     "cordova-android": "7.1.1",
     "cordova-clipboard": "1.2.1",
@@ -132,7 +135,8 @@
       "branch-cordova-sdk": {},
       "cordova-clipboard": {},
       "cordova-plugin-x-toast": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "com-sarriaroman-photoviewer": {}
     },
     "platforms": [
       "android"
