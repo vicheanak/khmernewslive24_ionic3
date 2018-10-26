@@ -16,14 +16,27 @@
 
 	
 		<div class="title" style="font-size:18px; font-weight: bold; line-height: 1.5;" [innerHtml]="post?.title"></div>
+		<ion-row no-padding>
+	      <ion-col text-left style="margin: 0px; padding: 0px;">
+	        <button ion-button clear large (click)="copy(post)">
+	          <ion-icon name='md-copy'></ion-icon>
+	        </button>
+	      </ion-col>
+	      <ion-col text-center style="margin: 0px; padding: 0px;">
+	        <button ion-button clear large (click)="save(post)">
+	          <ion-icon name='{{post?.is_saved ? "ios-bookmark" : "ios-bookmark-outline"}}'></ion-icon>
+	        </button>
+	      </ion-col>
+	      <ion-col text-right style="margin: 0px; padding: 0px;">
+	        <button ion-button clear large (click)="shareFacebook(post)">
+	          <ion-icon name='logo-facebook'></ion-icon>
+	        </button>
+	      </ion-col>
+	    </ion-row>
 		<div style="font-size:16px" class="content" [innerHtml]="post?.content | safeHtml"></div>
 	
+
 	<ion-fab right bottom>
-	    <button ion-fab color="danger"><ion-icon name="md-locate"></ion-icon></button>
-	    <ion-fab-list side="top">
-	      <button ion-fab color="primary" (click)="shareFacebook(post)"><ion-icon name="logo-facebook"></ion-icon></button>
-	      <button ion-fab color="primary" (click)="copy(post)"><ion-icon name="md-copy"></ion-icon></button>
-	      <button ion-fab color="primary" (click)="goBack()"><ion-icon name="md-arrow-round-back"></ion-icon></button>
-	    </ion-fab-list>
-	  </ion-fab>
+		<button ion-fab color="primary" (click)="goBack()"><ion-icon name="md-arrow-round-back"></ion-icon></button>
+  </ion-fab>
 </ion-content>

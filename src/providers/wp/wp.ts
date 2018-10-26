@@ -29,6 +29,7 @@ export class WpProvider {
 	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string, app_link: string, is_saved: boolean}> = [];
 	private wp: any = new WPAPI({ endpoint: 'https://www.khmernewslive24.com/?_embed&rest_route=/' });
 	public post: any;
+	public keys:  any = new Array();
 
 	public saved_articles: any = [];
 
@@ -37,10 +38,8 @@ export class WpProvider {
 	}
 
 	refresh(category_id): Promise<any[]> {
-		this.posts = [];
-		
 
-		
+
 		return new Promise((resolve, reject) => {
 			this.wp.posts().categories(category_id).then( (data) => {
 
@@ -48,47 +47,68 @@ export class WpProvider {
 				
 				
 				
-				for (let i = 0; i < data.length; i++) {
-					let img = '';
+				this.storage.ready().then(() => {
+					this.storage.keys().then((val) => {
+						this.posts = [];
+						this.keys = [];	
 
-					if (data[i]._embedded['wp:featuredmedia']){
-						img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
-					}
-					
-					let app_link = data[i]['app_link'];
 
-					let content = data[i]['the_content'];
+						for (let i = 0; i < val.length; i ++){
+							this.keys.push(val[i]);
+						}
 
-					if (data[i]['original_content'].length){
-						content = data[i]['original_content'][0];
-					}
+						
 
-					let is_saved = false;
+						for (let i = 0; i < data.length; i++) {
+							let img = '';
 
-					if (this.storage.length()){
-						this.storage.forEach( (value, key, index) => {
-							if (key == data[i]['id']){
-								is_saved = true;
+							if (data[i]._embedded['wp:featuredmedia']){
+								img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
 							}
-						});
-					}
-					
+							
+							let app_link = data[i]['app_link'];
 
-					this.posts.push({
-						id: data[i]['id'],
-						title: data[i]['title'].rendered,
-						category: data[i]['category_name'][0],
-						content: content,
-						image: img,
-						date: data[i].date,
-						link: data[i].link,
-						app_link: app_link,
-						is_saved: is_saved
+							let content = data[i]['the_content'];
+
+							if (data[i]['original_content'].length){
+								content = data[i]['original_content'][0];
+							}
+
+							let post = {
+								id: data[i]['id'],
+								title: data[i]['title'].rendered,
+								category: data[i]['category_name'][0],
+								content: content,
+								image: img,
+								date: data[i].date,
+								link: data[i].link,
+								app_link: app_link,
+								is_saved: false
+							}
+							
+							
+							for (let i = 0; i < this.keys.length; i ++){
+								// this.presentAlert('key id true/false ', this.keys[i] + " == " + data[i]['id']);
+								if (this.keys[i] == data[i]['id']){
+									
+									post.is_saved = true;
+									break;
+								}
+							}
+							
+							
+							this.posts.push(post);	
+							
+
+							
+
+						}
+
+						resolve(this.posts);
+
 					});
+				})
 
-				}
-
-				resolve(this.posts);
 
 			}).catch(function( err ) {
 				// handle error

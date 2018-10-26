@@ -5,6 +5,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
 import {HomePage} from '../../pages/home/home';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-detail',
@@ -21,7 +22,8 @@ export class DetailPage {
   	public navParams: NavParams,
   	public alertCtrl: AlertController,
     private clipboard: Clipboard,
-    private toast: Toast) {
+    private toast: Toast,
+    private storage: Storage) {
 
   }
 
@@ -66,6 +68,24 @@ export class DetailPage {
       this.navCtrl.setRoot(HomePage);  
     });
     
+  }
+
+  save(post){
+    if (this.storage.length()){
+      this.storage.get(post.id).then((val) => {
+        if (val){
+          post.is_saved = false;  
+          this.storage.remove(post.id);
+        }
+        else{
+          post.is_saved = true;
+          this.storage.set(post.id, JSON.stringify(post));
+        }
+      });
+    }
+    else{
+      this.storage.set(post.id, JSON.stringify(post));
+    }  
   }
 
   ionViewWillEnter(){

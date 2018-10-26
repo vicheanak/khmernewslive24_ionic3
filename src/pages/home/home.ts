@@ -59,19 +59,21 @@ export class HomePage {
 				this.pageTitle = arrayTitle[i]['title'];
 			}
 		}
-		
-		this.posts = [];
+
 		this.wpProvider.refresh(this.categoryId).then((posts) => {
 
-			for(let post of posts){
-				this.posts.push(post);
-			}
+			this.posts = posts;
+
+			
 			this.isReady = true;
+			
 		});
+		
 
+	}
 
-		// this.syncing();
-
+	ionViewDidLoad() {
+		
 	}
 
 	save(post){

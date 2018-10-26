@@ -32,7 +32,7 @@
       </ion-col>
       <ion-col text-center style="margin: 0px; padding: 0px;">
         <button ion-button clear large (click)="save(post)">
-          <ion-icon name='{{post?.is_saved ? "ios-bookmark" : "ios-bookmark-outline"}}'></ion-icon>
+          <ion-icon name='{{post?.is_saved == true ? "ios-bookmark" : "ios-bookmark-outline"}}'></ion-icon>
         </button>
       </ion-col>
       <ion-col text-right style="margin: 0px; padding: 0px;">
