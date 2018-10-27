@@ -58,7 +58,7 @@ const firebase = {
 }
 
 Pro.init('4dc427d8', {
-  appVersion: '0.0.4'
+  appVersion: '0.0.8'
 })
 
 @Injectable()
