@@ -66,25 +66,23 @@ export class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      this.fcm.getToken();
       
-      this.rootPage = HomePage;
+
+      this.fcm.getToken();
 
       try{
         this.fcm.listenToNotifications().subscribe((response) => {
+          
           if(response.tap){
 
-            // this.presentAlert('Notification', response.data['link']);
-            //Received while app in background (this should be the callback when a system notification is tapped)
-            //This is empty for our app since we just needed the notification to open the app
-            
+            this.nav.setRoot(DetailPage, {
+              id: response.id
+            });
+
           }else{
-            this.rootPage = DetailPage;
-            // this.presentAlert('Link', response.data['link']);
-            // this.presentAlert('Body', response.body);
-            //received while app in foreground (show a toast)
+            
             let toast = this.toastCtrl.create({
-              message: response.body,
+              message: response.title,
               duration: 3000
             });
             toast.present();
@@ -95,6 +93,7 @@ export class MyApp {
         this.presentAlert('Error Token FCM', err);
       }
       
+      this.rootPage = HomePage;
 
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -125,6 +124,34 @@ export class MyApp {
     });
 
     this.platform.resume.subscribe(() => {
+      
+      this.fcm.getToken();
+
+      try{
+        this.fcm.listenToNotifications().subscribe((response) => {
+          
+          if(response.tap){
+          
+            this.nav.setRoot(DetailPage, {
+              id: response.id
+            });
+          
+          }else{
+            
+            
+            let toast = this.toastCtrl.create({
+              message: response.title,
+              duration: 3000
+            });
+            
+            toast.present();
+
+          }
+        });
+      }catch(err){
+        this.presentAlert('Error Token FCM', err);
+      }
+
       this.branch.initSession().then(data => {
         if (data['+clicked_branch_link']) {
           

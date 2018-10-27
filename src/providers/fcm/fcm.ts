@@ -28,6 +28,8 @@ export class FcmProvider {
 
   	let token;
 
+  	this.firebaseNative.subscribe('news');
+
 	if (this.platform.is('android')) {
 		token = await this.firebaseNative.getToken()
 	} 
