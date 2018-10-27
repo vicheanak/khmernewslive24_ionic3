@@ -7,6 +7,7 @@ import { Toast } from '@ionic-native/toast';
 import {HomePage} from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 
 @Component({
   selector: 'page-detail',
@@ -25,7 +26,8 @@ export class DetailPage {
     private clipboard: Clipboard,
     private toast: Toast,
     private storage: Storage,
-    private photoViewer: PhotoViewer) {
+    private photoViewer: PhotoViewer,
+    private youtube: YoutubeVideoPlayer) {
 
   }
 
@@ -99,6 +101,23 @@ export class DetailPage {
     this.photoViewer.show(img, '', options);  
   }
 
+
+  youtube_parser(url){
+      let regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+      let match = url.match(regExp);
+      return (match&&match[7].length==11)? match[7] : false;
+  }
+
+  facebook_parser(frame) {
+    let myRegexp = /2F(\d+)%/g;
+    let match = myRegexp.exec(frame);
+    return match[1];
+  }
+
+  openYoutube(id){
+    this.youtube.openVideo(id);
+  }
+
   ionViewWillEnter(){
   	let postId = this.navParams.get('id');
 
@@ -107,6 +126,7 @@ export class DetailPage {
         this.post = post;
         this.post.contents = [];
         this.post.imgs = [];
+        this.post.iframes = [];
         // let regex = new RegExp(/<([^\s]+).*?src="([^"]*?)".*?>(.+?)<\/\1>/gi);
 
         // this.presentAlert('content', this.post.content);
@@ -118,7 +138,7 @@ export class DetailPage {
         let tmpP = document.createElement('div');
         tmpP.innerHTML = this.post.content;
         let pSrc = tmpP.getElementsByTagName('p');
-        let pSrcs = [];
+        
         for (let i=0, iLen=pSrc.length; i<iLen; i++) {
           this.post.contents[i] = pSrc[i].innerText;
         }
@@ -128,11 +148,32 @@ export class DetailPage {
         let tmp = document.createElement('div');
         tmp.innerHTML = this.post.content;
         let imgSrc = tmp.getElementsByTagName('img');
-        let imgSrcs = [];
+        
         for (let i=0, iLen=imgSrc.length; i<iLen; i++) {
           this.post.imgs[i] = imgSrc[i].src;
         }
          
+
+        let tmpVideo = document.createElement('div');
+        tmpVideo.innerHTML = this.post.content;
+        let videoSrc = tmpVideo.getElementsByTagName('iframe');
+        let videoSrcs = [];
+        for (let i=0, iLen=videoSrc.length; i<iLen; i++) {
+          let vid = '';
+          if (videoSrc[i].src.indexOf('youtube') > 0){
+            vid = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+this.youtube_parser(videoSrc[i].src)+'" frameborder="0" allowfullscreen></iframe>';
+          }
+          if (videoSrc[i].src.indexOf('facebook') > 0){
+            vid = '<iframe width="560" height="315" src="http://www.facebook.com/video/embed?video_id='+this.facebook_parser(videoSrc[i].src)+'" frameborder="0" allowfullscreen></iframe>';
+          }
+          
+          this.post.iframes[i] = vid;
+          
+        }
+
+        // http://www.facebook.com/video/embed?video_id=10152463995718183
+
+        
         
         
     });

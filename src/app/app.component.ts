@@ -170,7 +170,7 @@ export class MyApp {
       .then(() => { 
         this.admob.showRewardVideoAd(); 
       });  
-    }, 60000);
+    }, 30000);
     
     
 

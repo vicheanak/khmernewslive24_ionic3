@@ -46,6 +46,8 @@ import { Toast } from '@ionic-native/toast';
 import { IonicStorageModule } from '@ionic/storage';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
   authDomain: "khmer-news-live-24.firebaseapp.com",
@@ -128,7 +130,8 @@ export class MyErrorHandler implements ErrorHandler {
     BranchIo,
     Clipboard,
     Toast,
-    PhotoViewer
+    PhotoViewer,
+    YoutubeVideoPlayer
   ]
 })
 export class AppModule {}
