@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams,Platform, AlertController } from 'ionic-angular';
 import { WpProvider } from '../../providers/wp/wp';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Clipboard } from '@ionic-native/clipboard';
@@ -8,6 +8,7 @@ import {HomePage} from '../../pages/home/home';
 import { Storage } from '@ionic/storage';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { AdMobPro } from '@ionic-native/admob-pro';
 
 @Component({
   selector: 'page-detail',
@@ -27,7 +28,9 @@ export class DetailPage {
     private toast: Toast,
     private storage: Storage,
     private photoViewer: PhotoViewer,
-    private youtube: YoutubeVideoPlayer) {
+    private youtube: YoutubeVideoPlayer,
+    private admob: AdMobPro,
+    public platform: Platform) {
 
   }
 
@@ -116,6 +119,29 @@ export class DetailPage {
 
   openYoutube(id){
     this.youtube.openVideo(id);
+  }
+
+  async showAds(){
+    let videoAd;
+    let bannerAd;
+    if(this.platform.is('android')) 
+    {
+      videoAd = 'ca-app-pub-3976244179029334/5123051820';
+      bannerAd = 'ca-app-pub-3976244179029334/2760612369';
+    } 
+    else if (this.platform.is('ios')) 
+    {
+      videoAd = 'ca-app-pub-3976244189029334/3015344375';
+      bannerAd = 'ca-app-pub-3976244189029334/4011488000';
+    }
+
+    this.admob.prepareRewardVideoAd({adId: videoAd})
+    .then(() => { 
+      this.admob.showRewardVideoAd(); 
+    });  
+    
+    this.admob.createBanner({adId: bannerAd})
+    .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
   }
 
   ionViewWillEnter(){
