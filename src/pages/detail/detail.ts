@@ -160,11 +160,14 @@ export class DetailPage {
         let videoSrcs = [];
         for (let i=0, iLen=videoSrc.length; i<iLen; i++) {
           let vid = '';
+          
           if (videoSrc[i].src.indexOf('youtube') > 0){
             vid = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+this.youtube_parser(videoSrc[i].src)+'" frameborder="0" allowfullscreen></iframe>';
           }
           if (videoSrc[i].src.indexOf('facebook') > 0){
-            vid = '<iframe width="560" height="315" src="http://www.facebook.com/video/embed?video_id='+this.facebook_parser(videoSrc[i].src)+'" frameborder="0" allowfullscreen></iframe>';
+            // vid = '<iframe src="https://www.facebook.com/plugins/video.php?href='+videoSrc[i].src+'&width=360&show_text=false&appId=1905620589497116&height=360" width="360" height="360" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>';
+            vid = '<iframe src="'+videoSrc[i].src+'" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>';
+            // vid = '<iframe width="560" height="315" src="http://www.facebook.com/video/embed?video_id='+this.facebook_parser(videoSrc[i].src)+'" frameborder="0" allowfullscreen></iframe>';
           }
           
           this.post.iframes[i] = vid;
