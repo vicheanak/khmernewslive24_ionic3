@@ -182,8 +182,8 @@ export class MyApp {
     } 
     else if (this.platform.is('ios')) 
     {
-      videoAd = 'ca-app-pub-3976244189029334/3015344375';
-      bannerAd = 'ca-app-pub-3976244189029334/4011488000';
+      videoAd = 'ca-app-pub-3976244179029334/4184689885';
+      bannerAd = 'ca-app-pub-3976244179029334/5014130799';
     }
 
 

@@ -131,8 +131,8 @@ export class DetailPage {
     } 
     else if (this.platform.is('ios')) 
     {
-      videoAd = 'ca-app-pub-3976244189029334/3015344375';
-      bannerAd = 'ca-app-pub-3976244189029334/4011488000';
+      videoAd = 'ca-app-pub-3976244179029334/4184689885';
+      bannerAd = 'ca-app-pub-3976244179029334/5014130799';
     }
 
     this.admob.prepareRewardVideoAd({adId: videoAd})
@@ -200,6 +200,8 @@ export class DetailPage {
           this.post.iframes[i] = vid;
           
         }
+
+        this.showAds();
 
         // http://www.facebook.com/video/embed?video_id=10152463995718183
 
