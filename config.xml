@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.khmernewslive24.app" version="0.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.khmernewslive24.app" version="0.0.12" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Khmer News Live 24</name>
     <description>Enjoy reading video news in Khmer Language</description>
     <author email="vicheanak@gmail.com" href="https://www.khmernewslive24.com/">Vannavy Vicheanak</author>
