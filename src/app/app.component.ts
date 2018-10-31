@@ -31,7 +31,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
-  postId: any = {id: '31934'};
+  
 
 
   pages: Array<{title: string, component: any, categoryId: number}>;
@@ -221,7 +221,7 @@ export class MyApp {
           promptAgainForEachNewVersion: false,
           useCustomRateDialog: true,
           storeAppURL: {
-            ios: '1216856883',
+            ios: '1440587029',
             android: 'market://details?id=com.khmernewslive24.app'
           },
           customLocale: {
@@ -256,7 +256,7 @@ export class MyApp {
       promptAgainForEachNewVersion: false,
       useCustomRateDialog: true,
       storeAppURL: {
-        ios: '1216856883',
+        ios: '1440587029',
         android: 'market://details?id=com.khmernewslive24.app'
       },
       customLocale: {

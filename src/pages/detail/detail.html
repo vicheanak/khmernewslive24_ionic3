@@ -15,7 +15,7 @@
 	<img [src]="post?.image" *ngIf="post?.image" (click)="openImage(post?.image)"/>
 
 	
-		<div class="title" style="font-size:18px; font-weight: bold; line-height: 1.5;" [innerHtml]="post?.title"></div>
+		<div class="title" style="font-size:20px; line-height: 1.5;" [innerHtml]="post?.title"></div>
 		<ion-row no-padding>
 	      <ion-col text-left style="margin: 0px; padding: 0px;">
 	        <button ion-button clear large (click)="copy(post)">
@@ -33,7 +33,7 @@
 	        </button>
 	      </ion-col>
 	    </ion-row>
-		<p style="font-size:16px" class="content" *ngFor="let p of post?.contents">
+		<p style="font-size:18px" class="content" *ngFor="let p of post?.contents">
 			{{p}}
 		</p>
 
@@ -42,7 +42,7 @@
 		
 		<div class="card" *ngFor="let iframe of post?.iframes">
 			
-            <ion-item>
+            <ion-item no-lines>
                 <div class="video-container" overflow-scroll="true">
                     <div class="content" [innerHtml]="iframe | safeHtml"></div>
                 </div>

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "ionic-app-scripts serve",
     "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
+    "build": "ionic-app-scripts build --dev",
     "lint": "ionic-app-scripts lint"
   },
   "dependencies": {
@@ -46,6 +46,7 @@
     "cordova": "8.1.2",
     "cordova-android": "7.1.1",
     "cordova-clipboard": "1.2.1",
+    "cordova-ios": "4.5.5",
     "cordova-plugin-admobpro": "2.32.6",
     "cordova-plugin-appavailability": "0.4.2",
     "cordova-plugin-apprate": "1.4.0",
@@ -142,6 +143,7 @@
       "cordova-plugin-youtube-video-player": {}
     },
     "platforms": [
+      "ios",
       "android"
     ]
   }

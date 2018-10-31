@@ -1,0 +1,16 @@
+{
+  "ios": {
+    "debug": {
+      "developmentTeam": "S6V44TBNPC",
+      "buildFlag": [
+        "-UseModernBuildSystem=0"
+      ]
+    },
+    "release": {
+      "developmentTeam": "S6V44TBNPC",
+      "buildFlag": [
+        "-UseModernBuildSystem=0"
+      ]
+    }
+  }
+}

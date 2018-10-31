@@ -67,11 +67,19 @@ export class FcmProvider {
 		version: this.device.version,
 		platform: this.device.platform,
 		model: this.device.model,
-		manufacturer: this.device.manufacturer
+		manufacturer: this.device.manufacturer,
+		date: this.getFormattedDate()
 	}
 
 	return devicesRef.doc(token).set(docData)
 
+  }
+
+  getFormattedDate() {
+  	let date = new Date();
+  	let str = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " +  date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+  	return str;
   }
 
   // Listen to incoming FCM messages

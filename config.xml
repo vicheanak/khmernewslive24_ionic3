@@ -103,7 +103,7 @@
         <branch-key value="key_live_leKpjCu7Ry6CklliGho9qnpdryljE4k5" />
         <uri-scheme value="khmernewslive" />
         <link-domain value="khmernewslive.app.link" />
-        <ios-team-release value="PW4Q8885U7" />
+        <ios-team-release value="S6V44TBNPC" />
     </branch-config>
     <plugin name="cordova-plugin-ionic" spec="5.2.5">
         <variable name="APP_ID" value="4dc427d8" />
@@ -118,5 +118,6 @@
     <plugin name="cordova-sqlite-storage" spec="2.5.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="1.1.18" />
     <plugin name="cordova-plugin-youtube-video-player" spec="2.0.0" />
+    <engine name="ios" spec="4.5.5" />
     <engine name="android" spec="7.1.1" />
 </widget>
