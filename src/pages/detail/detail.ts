@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { AdMobPro } from '@ionic-native/admob-pro';
+import { InAppPurchase } from '@ionic-native/in-app-purchase';
 
 @Component({
   selector: 'page-detail',
@@ -30,7 +31,8 @@ export class DetailPage {
     private photoViewer: PhotoViewer,
     private youtube: YoutubeVideoPlayer,
     private admob: AdMobPro,
-    public platform: Platform) {
+    public platform: Platform,
+    private iap: InAppPurchase,) {
 
   }
 
@@ -43,8 +45,6 @@ export class DetailPage {
   	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
   	});
-
-
   }
 
   async copy(post){
@@ -201,30 +201,53 @@ export class DetailPage {
           
         }
 
-        this.showAds();
-
-        // http://www.facebook.com/video/embed?video_id=10152463995718183
-
-        
+        if (this.isSubscribe()){
+          this.showAds();  
+        }
         
         
     });
 
+  }
 
 
+  async isSubscribe(){
+    this.storage.get('purchased').then((val) => {
+      this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
+      if (val){
+        let purchased = JSON.parse(val);
+        this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
+        .then((data) => {
+          this.presentAlert("You're already subscribe! Should Return True", JSON.stringify(data));
+          return true;
+        })
+        .catch((err) => {
+          this.presentAlert("Error Consume Product! Should Return False", JSON.stringify(err));
+          return false;
+        });
+      }
+      else{
+
+        this.presentAlert("Should Return False", JSON.stringify(val));
+        return false;
+      }
+    });
+  }
+
+  async subscribe(){
+    this.iap.getProducts(['INAPP001']).then((products) => {
+       this.iap.subscribe(products[0]['productId']).then((data)=> {
+          this.presentAlert("SUBSCRIBE", JSON.stringify(data));
+          // transactionId: string, receipt: string, signature: string, productType: string
+          // consume(productType, receipt, signature)
+        })
+        .catch((err)=> {
+          this.presentAlert("ERROR SUBSCRIBE", JSON.stringify(err));
+        });
+     }).catch((err) => {
+       this.presentAlert("ERROR QUERY", JSON.stringify(err));
+     });
     
-
-    
-
-
-  	// if (!this.post){
-  	// 	this.wpProvider.getSinglePost(postId).then(post => {
-  	// 		this.post = post;
-  	// 	});
-  	// }
-
-    
-
   }
 
 }

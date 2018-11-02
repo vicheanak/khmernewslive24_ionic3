@@ -43,17 +43,40 @@ export class SubscribePage {
 		await alert.present();
 	}		
 
+
+
 	async subscribe(){
-		this.iap.getProducts(['INAPP001']).then((products) => {
-		   this.iap.subscribe(products[0]['productId']).then((data)=> {
-			  	this.presentAlert("SUBSCRIBE", JSON.stringify(data));
-			  })
-			  .catch((err)=> {
-			    this.presentAlert("ERROR SUBSCRIBE", JSON.stringify(err));
-			  });
-		 }).catch((err) => {
-		   this.presentAlert("ERROR QUERY", JSON.stringify(err));
-		 });
+
+		this.storage.get('purchased').then((val) => {
+			this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
+			if (val){
+				let purchased = JSON.parse(val);
+				this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
+				.then((data) => {
+					this.presentAlert("You're already subscribe!", JSON.stringify(data));
+				})
+				.catch((err) => {
+					this.presentAlert("Error Consume Product! Should ask user to subscribe", JSON.stringify(err));
+				});
+			}
+			else{
+				this.iap.getProducts(['INAPP001']).then((products) => {
+					this.iap.subscribe(products[0]['productId']).then((data)=> {
+						this.presentAlert("Thank you for subscription", JSON.stringify(data));
+						this.storage.set("purchased", JSON.stringify(data));
+						// transactionId: string, receipt: string, signature: string, productType: string
+						// consume(productType, receipt, signature)
+					})
+					.catch((err)=> {
+						this.presentAlert("Error Subscription", JSON.stringify(err));
+					});
+				}).catch((err) => {
+					this.presentAlert("Error Get Product Id", JSON.stringify(err));
+				});
+			}
+		});
+
+				
 		
 	}
 

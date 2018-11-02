@@ -24,6 +24,8 @@ export class SavePage {
 
 	public isReady: boolean = false;
 
+	public postCount: number = 0;
+
 	constructor(
 		public wpProvider: WpProvider,
 		public navCtrl: NavController, 
@@ -39,6 +41,8 @@ export class SavePage {
 		this.wpProvider.getSavePost().then((posts) => {
 
 			this.posts = posts;
+
+			this.postCount = this.posts.length;
 
 			this.isReady = true;
 			
