@@ -227,7 +227,7 @@ export class DetailPage {
 
 
   async subscribe(){
-    this.iap.getProducts(['INAPP001']).then((products) => {
+    this.iap.getProducts(['com.khmernewslive24.subscription']).then((products) => {
        this.iap.subscribe(products[0]['productId']).then((data)=> {
           this.presentAlert("SUBSCRIBE", JSON.stringify(data));
           // transactionId: string, receipt: string, signature: string, productType: string

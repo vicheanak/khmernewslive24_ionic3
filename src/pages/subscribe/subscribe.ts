@@ -48,6 +48,7 @@ export class SubscribePage {
 
 
 	async subscribe(){
+		
 
 		this.storage.get('purchased').then((val) => {
 			// this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
@@ -58,7 +59,7 @@ export class SubscribePage {
 					this.presentAlert("Thank you", "You're already subscribed!");
 				})
 				.catch((err) => {
-					this.iap.getProducts(['INAPP001']).then((products) => {
+					this.iap.getProducts(['com.khmernewslive24.subscription']).then((products) => {
 						this.iap.subscribe(products[0]['productId']).then((data)=> {
 							this.presentAlert("Thank you for subscription", "Enjoy the app without ads");
 							this.storage.set("purchased", JSON.stringify(data));
@@ -74,7 +75,7 @@ export class SubscribePage {
 				});
 			}
 			else{
-				this.iap.getProducts(['INAPP001']).then((products) => {
+				this.iap.getProducts(['com.khmernewslive24.subscription']).then((products) => {
 					this.iap.subscribe(products[0]['productId']).then((data)=> {
 						this.presentAlert("Thank you for subscription", "Enjoy the app without ads");
 						this.storage.set("purchased", JSON.stringify(data));
