@@ -50,30 +50,40 @@ export class SubscribePage {
 	async subscribe(){
 
 		this.storage.get('purchased').then((val) => {
-			this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
+			// this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
 			if (val){
 				let purchased = JSON.parse(val);
 				this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
 				.then((data) => {
-					this.presentAlert("You're already subscribe!", JSON.stringify(data));
+					this.presentAlert("Thank you", "You're already subscribed!");
 				})
 				.catch((err) => {
-					this.presentAlert("Error Consume Product! Should ask user to subscribe", JSON.stringify(err));
+					this.iap.getProducts(['INAPP001']).then((products) => {
+						this.iap.subscribe(products[0]['productId']).then((data)=> {
+							this.presentAlert("Thank you for subscription", "Enjoy the app without ads");
+							this.storage.set("purchased", JSON.stringify(data));
+							// transactionId: string, receipt: string, signature: string, productType: string
+							// consume(productType, receipt, signature)
+						})
+						.catch((err)=> {
+							
+						});
+					}).catch((err) => {
+						
+					});
 				});
 			}
 			else{
 				this.iap.getProducts(['INAPP001']).then((products) => {
 					this.iap.subscribe(products[0]['productId']).then((data)=> {
-						this.presentAlert("Thank you for subscription", JSON.stringify(data));
+						this.presentAlert("Thank you for subscription", "Enjoy the app without ads");
 						this.storage.set("purchased", JSON.stringify(data));
-						// transactionId: string, receipt: string, signature: string, productType: string
-						// consume(productType, receipt, signature)
 					})
 					.catch((err)=> {
-						this.presentAlert("Error Subscription", JSON.stringify(err));
+						
 					});
 				}).catch((err) => {
-					this.presentAlert("Error Get Product Id", JSON.stringify(err));
+					
 				});
 			}
 		});

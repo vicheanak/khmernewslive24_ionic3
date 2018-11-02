@@ -201,38 +201,30 @@ export class DetailPage {
           
         }
 
-        if (this.isSubscribe()){
-          this.showAds();  
-        }
-        
-        
-    });
-
-  }
-
-
-  async isSubscribe(){
-    this.storage.get('purchased').then((val) => {
-      this.presentAlert("Check Is Subscribe!", JSON.stringify(val));
-      if (val){
-        let purchased = JSON.parse(val);
-        this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
-        .then((data) => {
-          this.presentAlert("You're already subscribe! Should Return True", JSON.stringify(data));
-          return true;
-        })
-        .catch((err) => {
-          this.presentAlert("Error Consume Product! Should Return False", JSON.stringify(err));
-          return false;
+       
+        this.storage.get('purchased').then((val) => {
+          if (val){
+            let purchased = JSON.parse(val);
+            this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
+            .then((data) => {
+              //Already subscribe
+            })
+            .catch((err) => {
+              this.showAds();  
+            });
+          }
+          else{
+            this.showAds();  
+          }
         });
-      }
-      else{
 
-        this.presentAlert("Should Return False", JSON.stringify(val));
-        return false;
-      }
+        
+        
     });
+
   }
+
+
 
   async subscribe(){
     this.iap.getProducts(['INAPP001']).then((products) => {
