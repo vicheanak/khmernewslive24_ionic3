@@ -44,7 +44,7 @@ export class SubscribePage {
 	}		
 
 	async subscribe(){
-		this.iap.getProducts(['KNL001']).then((products) => {
+		this.iap.getProducts(['INAPP001']).then((products) => {
 		   this.iap.subscribe(products[0]['productId']).then((data)=> {
 			  	this.presentAlert("SUBSCRIBE", JSON.stringify(data));
 			  })

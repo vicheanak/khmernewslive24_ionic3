@@ -16,9 +16,21 @@
 
   <ion-card (click)="subscribe()">
     <img src="../assets/imgs/subscription.jpg"/>
-    <div class="card-title">
-    	Subscribe Today!
-    </div>
-    <div class="card-subtitle">$0.49/Year</div>
+    <ion-card-content>
+	    <ion-card-title>
+	      គុណប្រយោជន៍ណៃការជាវ / Benefits of Subscription
+	      </ion-card-title>
+	    <p>
+	      1. មិនមានផ្សាយពានិជកម្ម / No advertisement
+	    </p>
+	    <p>
+	      2. អានពត៌មានជាមួយរូបភាព និង វីដេអូ / Can read news articles with images and videos
+	    </p>
+	    <p>
+	      3. អាចចំណាំពត៌មានទុកអានពេលក្រោយ / Can save news to read later
+	    </p>
+	    <button ion-button round block (click)="subscribe()">Subscribe $1.99/Month</button>
+	  </ion-card-content>
   </ion-card>
+
 </ion-content>
