@@ -10,7 +10,10 @@
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
-      <ion-item-divider color="light">V 0.0.12</ion-item-divider>
+      <ion-item-divider color="light">V 0.0.13</ion-item-divider>
+        <button menuClose ion-item (click)="pushSubscribePage()">
+            Subscribe
+        </button>
         <button menuClose ion-item (click)="pushSavePage()">
             ចំណាំ អត្ថបទ
         </button>

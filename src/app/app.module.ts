@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { ContactPage } from '../pages/contact/contact';
 import { DetailPage } from '../pages/detail/detail';
 import { SavePage } from '../pages/save/save';
+import { SubscribePage } from '../pages/subscribe/subscribe';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,6 +48,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { InAppPurchase } from '@ionic-native/in-app-purchase';
 
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
@@ -91,6 +93,7 @@ export class MyErrorHandler implements ErrorHandler {
     ContactPage,
     TimeAgoPipe,
     SavePage,
+    SubscribePage
   ],
   imports: [
     BrowserModule,
@@ -110,7 +113,8 @@ export class MyErrorHandler implements ErrorHandler {
     ListPage,
     DetailPage,
     ContactPage,
-    SavePage
+    SavePage,
+    SubscribePage
   ],
   providers: [
     StatusBar,
@@ -131,7 +135,8 @@ export class MyErrorHandler implements ErrorHandler {
     Clipboard,
     Toast,
     PhotoViewer,
-    YoutubeVideoPlayer
+    YoutubeVideoPlayer,
+    InAppPurchase
   ]
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { DetailPage } from '../pages/detail/detail';
 import { SavePage } from '../pages/save/save';
+import { SubscribePage } from '../pages/subscribe/subscribe';
 
 import { FcmProvider } from '../providers/fcm/fcm';
 
@@ -18,6 +19,7 @@ import { AppRate } from '@ionic-native/app-rate';
 import { Pro } from '@ionic/pro';
 import { ContactPage } from '../pages/contact/contact';
 import { BranchIo } from '@ionic-native/branch-io';
+
 
 // import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
@@ -45,7 +47,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private admob: AdMobPro,
     private appRate: AppRate,
-    private branch: BranchIo
+    private branch: BranchIo,
+
     ) {
     this.initializeApp();
 
@@ -110,7 +113,7 @@ export class MyApp {
       });
       
 
-      this.showAds();
+      
       
       this.rateAuto();
 
@@ -295,6 +298,10 @@ export class MyApp {
 
   pushSavePage(){
     this.nav.setRoot(SavePage);
+  }
+
+  pushSubscribePage(){
+   this.nav.setRoot(SubscribePage); 
   }
 
 }
