@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Platform} from 'ionic-angular';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the SubscribePage page.
@@ -22,7 +23,8 @@ export class SubscribePage {
   	public navParams: NavParams,
   	private iap: InAppPurchase,
   	private alertController: AlertController,
-  	private platform: Platform) {
+  	private platform: Platform,
+  	private storage: Storage) {
   }
 
   ionViewDidLoad() {
