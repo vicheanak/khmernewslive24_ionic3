@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Platform} from 'ionic-angular';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
 import { Storage } from '@ionic/storage';
+import {ReportProvider} from '../../providers/report/report';
 
 /**
  * Generated class for the SubscribePage page.
@@ -24,7 +25,8 @@ export class SubscribePage {
   	private iap: InAppPurchase,
   	private alertController: AlertController,
   	private platform: Platform,
-  	private storage: Storage) {
+  	private storage: Storage,
+  	private report: ReportProvider) {
   }
 
   ionViewDidLoad() {
@@ -68,9 +70,39 @@ export class SubscribePage {
 						})
 						.catch((err)=> {
 							
+							this.report.sendPostRequest({
+								'subject' : 'Error! - KNL Subscribe Page subscribe() Failed Subscribe',
+								'type' : '',
+								'crawl_link' : '',
+								'post_link' : '',
+								'title' : '',
+								'content' : '',
+								'iframe' : '',
+								'app_link' : '',
+								'notification' : '',
+								'featured_image' : '',
+								'detail_message' : JSON.stringify(err),
+							}).then((data) => {
+							
+							});
 						});
 					}).catch((err) => {
 						
+						this.report.sendPostRequest({
+							'subject' : 'Error! - KNL Subscribe Page subscribe() No Product',
+							'type' : '',
+							'crawl_link' : '',
+							'post_link' : '',
+							'title' : '',
+							'content' : '',
+							'iframe' : '',
+							'app_link' : '',
+							'notification' : '',
+							'featured_image' : '',
+							'detail_message' : JSON.stringify(err),
+						}).then((data) => {
+						
+						});
 					});
 				});
 			}
@@ -82,9 +114,39 @@ export class SubscribePage {
 					})
 					.catch((err)=> {
 						
+						this.report.sendPostRequest({
+							'subject' : 'Error! - KNL Subscribe Page subscribe() No Val Failed Subscribe',
+							'type' : '',
+							'crawl_link' : '',
+							'post_link' : '',
+							'title' : '',
+							'content' : '',
+							'iframe' : '',
+							'app_link' : '',
+							'notification' : '',
+							'featured_image' : '',
+							'detail_message' : JSON.stringify(err),
+						}).then((data) => {
+						
+						});
 					});
 				}).catch((err) => {
 					
+					this.report.sendPostRequest({
+						'subject' : 'Error! - KNL Subscribe Page subscribe() No Val No Product',
+						'type' : '',
+						'crawl_link' : '',
+						'post_link' : '',
+						'title' : '',
+						'content' : '',
+						'iframe' : '',
+						'app_link' : '',
+						'notification' : '',
+						'featured_image' : '',
+						'detail_message' : JSON.stringify(err),
+					}).then((data) => {
+					
+					});
 				});
 			}
 		});

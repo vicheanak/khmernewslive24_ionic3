@@ -10,6 +10,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { AdMobPro } from '@ionic-native/admob-pro';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
+import {ReportProvider} from '../../providers/report/report';
 
 @Component({
   selector: 'page-detail',
@@ -32,7 +33,8 @@ export class DetailPage {
     private youtube: YoutubeVideoPlayer,
     private admob: AdMobPro,
     public platform: Platform,
-    private iap: InAppPurchase,) {
+    private iap: InAppPurchase,
+    private report: ReportProvider) {
 
   }
 

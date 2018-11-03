@@ -29,6 +29,7 @@
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/device": "^4.16.0",
     "@ionic-native/firebase": "^4.16.0",
+    "@ionic-native/http": "^4.17.0",
     "@ionic-native/in-app-browser": "^4.16.0",
     "@ionic-native/in-app-purchase": "^4.16.0",
     "@ionic-native/photo-viewer": "^4.16.0",
@@ -49,6 +50,7 @@
     "cordova-clipboard": "1.2.1",
     "cordova-ios": "4.5.5",
     "cordova-plugin-admobpro": "2.32.6",
+    "cordova-plugin-advanced-http": "2.0.1",
     "cordova-plugin-appavailability": "0.4.2",
     "cordova-plugin-apprate": "1.4.0",
     "cordova-plugin-device": "^2.0.2",
@@ -143,7 +145,8 @@
       "cordova-sqlite-storage": {},
       "com-sarriaroman-photoviewer": {},
       "cordova-plugin-youtube-video-player": {},
-      "cordova-plugin-inapppurchase-fixed": {}
+      "cordova-plugin-inapppurchase-fixed": {},
+      "cordova-plugin-advanced-http": {}
     },
     "platforms": [
       "android",

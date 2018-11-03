@@ -10,7 +10,7 @@ import { Toast } from '@ionic-native/toast';
 
 import { Pro } from '@ionic/pro';
 import { Storage } from '@ionic/storage';
-
+import {ReportProvider} from '../../providers/report/report';
 
 @Component({
 	selector: 'page-home',
@@ -40,7 +40,8 @@ export class HomePage {
 		public alertController: AlertController, 
 		private socialSharing: SocialSharing, 
 		public navCtrl: NavController,
-		private storage: Storage) {
+		private storage: Storage,
+		private report: ReportProvider) {
 
 		this.categoryId = navParams.get('categoryId');
 		
@@ -88,6 +89,22 @@ export class HomePage {
 					post.is_saved = true;
 					this.storage.set(post.id, JSON.stringify(post));
 				}
+			}).catch((err) => {
+				this.report.sendPostRequest({
+					'subject' : 'Error! - Error Home Page save()',
+					'type' : '',
+					'crawl_link' : '',
+					'post_link' : '',
+					'title' : '',
+					'content' : '',
+					'iframe' : '',
+					'app_link' : '',
+					'notification' : '',
+					'featured_image' : '',
+					'detail_message' : JSON.stringify(err),
+				}).then((data) => {
+				
+				});
 			});
 		}
 		else{
@@ -156,7 +173,21 @@ export class HomePage {
 			// We encountered an error.
 			// Here's how we would log it to Ionic Pro Monitoring while also catching:
 
-			Pro.monitoring.exception(err);
+			this.report.sendPostRequest({
+				'subject' : 'Error! - Error Home Page checkChanel()',
+				'type' : '',
+				'crawl_link' : '',
+				'post_link' : '',
+				'title' : '',
+				'content' : '',
+				'iframe' : '',
+				'app_link' : '',
+				'notification' : '',
+				'featured_image' : '',
+				'detail_message' : JSON.stringify(err),
+			}).then((data) => {
+			
+			});
 		}
 	}
 
@@ -173,7 +204,21 @@ export class HomePage {
 			// We encountered an error.
 			// Here's how we would log it to Ionic Pro Monitoring while also catching:
 
-			Pro.monitoring.exception(err);
+			this.report.sendPostRequest({
+				'subject' : 'Error! - Error Home Page syncing()',
+				'type' : '',
+				'crawl_link' : '',
+				'post_link' : '',
+				'title' : '',
+				'content' : '',
+				'iframe' : '',
+				'app_link' : '',
+				'notification' : '',
+				'featured_image' : '',
+				'detail_message' : JSON.stringify(err),
+			}).then((data) => {
+			
+			});
 		}
 
 	}
@@ -197,7 +242,21 @@ export class HomePage {
     	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
 
     	}).catch((err) => {
-			Pro.monitoring.exception(err);		
+			this.report.sendPostRequest({
+				'subject' : 'Error! - Error Home Page shareFacebook()',
+				'type' : '',
+				'crawl_link' : '',
+				'post_link' : '',
+				'title' : '',
+				'content' : '',
+				'iframe' : '',
+				'app_link' : '',
+				'notification' : '',
+				'featured_image' : '',
+				'detail_message' : JSON.stringify(err),
+			}).then((data) => {
+			
+			});
     	});
     }
 

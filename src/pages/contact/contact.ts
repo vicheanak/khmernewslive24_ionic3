@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Platform, AlertController } from '
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { AppAvailability } from '@ionic-native/app-availability';
 import { CallNumber } from '@ionic-native/call-number';
+import { ReportProvider } from '../../providers/report/report';
 
 /**
  * Generated class for the ContactPage page.
@@ -28,7 +29,8 @@ import { CallNumber } from '@ionic-native/call-number';
  		private iab: InAppBrowser, 
  		public navCtrl: NavController, 
  		public navParams: NavParams,
- 		private alertCtrl: AlertController) {
+ 		private alertCtrl: AlertController,
+ 		private report: ReportProvider) {
 
 
 

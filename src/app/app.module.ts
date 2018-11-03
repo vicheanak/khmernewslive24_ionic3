@@ -49,6 +49,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
+import { ReportProvider } from '../providers/report/report';
+import { HTTP } from '@ionic-native/http';
 
 const firebase = {
   apiKey: "AIzaSyA77tgx5xc_T6hdBPS-gcaR1NBEW3Oe6lo",
@@ -136,7 +138,9 @@ export class MyErrorHandler implements ErrorHandler {
     Toast,
     PhotoViewer,
     YoutubeVideoPlayer,
-    InAppPurchase
+    InAppPurchase,
+    ReportProvider,
+    HTTP
   ]
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Toast } from '@ionic-native/toast';
 import { Storage } from '@ionic/storage';
 import {DetailPage} from '../../pages/detail/detail';
+import {ReportProvider} from '../../providers/report/report';
 /**
  * Generated class for the SavePage page.
  *
@@ -35,7 +36,8 @@ export class SavePage {
 		private clipboard: Clipboard,
 		private toast: Toast,
 		private storage: Storage,
-		private alertController: AlertController
+		private alertController: AlertController,
+		private report: ReportProvider
 		) {
 		this.posts = [];
 		this.wpProvider.getSavePost().then((posts) => {
@@ -46,6 +48,22 @@ export class SavePage {
 
 			this.isReady = true;
 			
+		}).catch((err) => {
+			this.report.sendPostRequest({
+				'subject' : 'Error! - Error Save Page Single Post',
+				'type' : '',
+				'crawl_link' : '',
+				'post_link' : '',
+				'title' : '',
+				'content' : '',
+				'iframe' : '',
+				'app_link' : '',
+				'notification' : '',
+				'featured_image' : '',
+				'detail_message' : JSON.stringify(err),
+			}).then((data) => {
+			
+			});
 		});
 	}
 
