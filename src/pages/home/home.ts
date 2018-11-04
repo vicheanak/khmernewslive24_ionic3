@@ -25,7 +25,7 @@ export class HomePage {
 	public categoryId: any = "";
 	public pageTitle: any = "";
 	
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; app_link: string; is_saved: boolean }> = [];
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; is_saved: boolean }> = [];
 	public morePagesAvailable: Boolean;
 	private page: number = 1;
 	public isReady: boolean = false;
@@ -225,7 +225,7 @@ export class HomePage {
 
 
 	copy(post){
-		this.clipboard.copy(post.title + '\n\n>>> ដោនឡូត Khmer News Live ក្នុង Play Store ឥឡូវនេះ FREE!!! \n' + post.app_link);
+		this.clipboard.copy(post.title + '\n\n' + post.link);
 		this.toast.show('Copied...', '1500', 'center').subscribe(
 		  toast => {
 		    
@@ -239,7 +239,7 @@ export class HomePage {
     		appName = 'com.apple.social.facebook'
     	}
     	
-    	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
+    	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
 
     	}).catch((err) => {
 			this.report.sendPostRequest({

@@ -46,7 +46,7 @@ export class ReportProvider {
 			'detail_message' : data.detail_message,
 		}
 		
-	      this.http.post('https://www.khmernewslive24.com/webhook/send_email.php', postData, {})
+	     this.http.post('https://www.khmernewslive24.com/webhook/send_email.php', postData, {})
 	        .then(data => {
 	        	this.presentAlert('Successuflly Sent', data);
 	          	this.data = data;

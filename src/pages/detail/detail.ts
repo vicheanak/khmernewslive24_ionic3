@@ -44,14 +44,14 @@ export class DetailPage {
 
   async shareFacebook(post){
 		
-  	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
+  	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
 
   	});
   }
 
   async copy(post){
     
-    this.clipboard.copy(post.title + '\n\n>>> ដោនឡូត Khmer News Live ក្នុង Play Store ឥឡូវនេះ FREE!!! \n' + post.app_link);
+    this.clipboard.copy( post.title + '\n\n' + post.link);
     this.toast.show('Copied...', '1500', 'center').subscribe(
       toast => {
         
@@ -204,21 +204,21 @@ export class DetailPage {
         }
 
        
-        this.storage.get('purchased').then((val) => {
-          if (val){
-            let purchased = JSON.parse(val);
-            this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
-            .then((data) => {
-              //Already subscribe
-            })
-            .catch((err) => {
-              this.showAds();  
-            });
-          }
-          else{
-            this.showAds();  
-          }
-        });
+        // this.storage.get('purchased').then((val) => {
+        //   if (val){
+        //     let purchased = JSON.parse(val);
+        //     this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
+        //     .then((data) => {
+        //       //Already subscribe
+        //     })
+        //     .catch((err) => {
+        //       this.showAds();  
+        //     });
+        //   }
+        //   else{
+        //     this.showAds();  
+        //   }
+        // });
 
         
         

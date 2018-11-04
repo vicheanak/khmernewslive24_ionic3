@@ -19,7 +19,9 @@ import { AppRate } from '@ionic-native/app-rate';
 import { Pro } from '@ionic/pro';
 import { ContactPage } from '../pages/contact/contact';
 import { BranchIo } from '@ionic-native/branch-io';
-
+import { ReportProvider } from '../providers/report/report';
+import { Storage } from '@ionic/storage';
+import { InAppPurchase } from '@ionic-native/in-app-purchase';
 
 // import { SpinnerDialog } from '@ionic-native/spinner-dialog';
 
@@ -48,6 +50,9 @@ export class MyApp {
     private admob: AdMobPro,
     private appRate: AppRate,
     private branch: BranchIo,
+    private report: ReportProvider,
+    private storage: Storage,
+    private iap: InAppPurchase
 
     ) {
     this.initializeApp();
@@ -88,7 +93,22 @@ export class MyApp {
           }
         });
       }catch(err){
-        this.presentAlert('Error Token FCM', err);
+        
+        this.report.sendPostRequest({
+          'subject' : 'Error! - KNL refresh()',
+          'type' : '',
+          'crawl_link' : '',
+          'post_link' : '',
+          'title' : '',
+          'content' : '',
+          'iframe' : '',
+          'app_link' : '',
+          'notification' : '',
+          'featured_image' : '',
+          'detail_message' : JSON.stringify(err),
+        }).then((data) => {
+        
+        });
       }
       
       this.rootPage = HomePage;
@@ -98,19 +118,35 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.branch.initSession().then(data => {
-        if (data['+clicked_branch_link']) {
+      // this.branch.initSession().then(data => {
+      //   if (data['+clicked_branch_link']) {
           
-          let url = data['$canonical_url'];
-          if (url){
-            url = url.split('p=');
-            let id = url[1];
-            this.nav.setRoot(DetailPage, {
-              id: id
-            });
-          }
-        }
-      });
+      //     let url = data['$canonical_url'];
+      //     if (url){
+      //       url = url.split('p=');
+      //       let id = url[1];
+      //       this.nav.setRoot(DetailPage, {
+      //         id: id
+      //       });
+      //     }
+      //   }
+      // }).catch((err) => {
+      //   this.report.sendPostRequest({
+      //     'subject' : 'Error! - KNL App Component Fail initSession()',
+      //     'type' : '',
+      //     'crawl_link' : '',
+      //     'post_link' : '',
+      //     'title' : '',
+      //     'content' : '',
+      //     'iframe' : '',
+      //     'app_link' : '',
+      //     'notification' : '',
+      //     'featured_image' : '',
+      //     'detail_message' : JSON.stringify(err),
+      //   }).then((data) => {
+        
+      //   });
+      // });
       
 
       
@@ -118,6 +154,21 @@ export class MyApp {
       this.rateAuto();
 
       
+       this.storage.get('purchased').then((val) => {
+          if (val){
+            let purchased = JSON.parse(val);
+            this.iap.consume(purchased.productType, purchased.receipt, purchased.signature)
+            .then((data) => {
+              //Already subscribe
+            })
+            .catch((err) => {
+              this.showAds();  
+            });
+          }
+          else{
+            this.showAds();  
+          }
+        });
       
     });
 
@@ -150,22 +201,38 @@ export class MyApp {
         this.presentAlert('Error Token FCM', err);
       }
 
-      this.branch.initSession().then(data => {
-        if (data['+clicked_branch_link']) {
+      // this.branch.initSession().then(data => {
+      //   if (data['+clicked_branch_link']) {
           
           
-          let url = data['$canonical_url'];
-          if (url){
-            url = url.split('p=');
-            let id = url[1];
-            this.nav.setRoot(DetailPage, {
-              id: id
-            });
-          }
+      //     let url = data['$canonical_url'];
+      //     if (url){
+      //       url = url.split('p=');
+      //       let id = url[1];
+      //       this.nav.setRoot(DetailPage, {
+      //         id: id
+      //       });
+      //     }
           
           
-        }
-      });
+      //   }
+      // }).then((err) => {
+      //   this.report.sendPostRequest({
+      //     'subject' : 'Error! - KNLocal Resume branch resume()',
+      //     'type' : '',
+      //     'crawl_link' : '',
+      //     'post_link' : '',
+      //     'title' : '',
+      //     'content' : '',
+      //     'iframe' : '',
+      //     'app_link' : '',
+      //     'notification' : '',
+      //     'featured_image' : '',
+      //     'detail_message' : JSON.stringify(err),
+      //   }).then((data) => {
+        
+      //   });
+      // });
     });
 
 

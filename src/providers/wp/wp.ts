@@ -27,7 +27,7 @@ interface Post {
 @Injectable()
 export class WpProvider {
 
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string, app_link: string, is_saved: boolean}> = [];
+	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string, is_saved: boolean}> = [];
 	private wp: any = new WPAPI({ endpoint: 'https://www.khmernewslive24.com/?_embed&rest_route=/' });
 	public post: any;
 	public keys:  any = new Array();
@@ -70,7 +70,7 @@ export class WpProvider {
 								img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
 							}
 							
-							let app_link = data[i]['app_link'];
+							
 
 							// let content = data[i]['the_content'];
 							let content = '';
@@ -86,7 +86,6 @@ export class WpProvider {
 								image: img,
 								date: data[i].date,
 								link: data[i].link,
-								app_link: app_link,
 								is_saved: false
 							}
 							
@@ -160,7 +159,7 @@ export class WpProvider {
 							img = data[i]._embedded['wp:featuredmedia']['0'].source_url;
 						}
 
-						let app_link = data[i]['app_link'];
+						
 						
 						// let content = data[i]['the_content'];
 						let content = '';
@@ -180,7 +179,6 @@ export class WpProvider {
 							image: img,
 							date: data[i].date,
 							link: data[i].link,
-							app_link: app_link,
 							is_saved: is_saved
 						};
 
@@ -266,17 +264,6 @@ export class WpProvider {
 
 				let content = data['content'].rendered;
 
-				// this.presentAlert('content', JSON.stringify(content));
-				
-
-				// if (data['original_content'].length){
-				// 	content = data['original_content'][0];
-				// }
-
-
-				
-
-				let app_link = data['app_link'];
 
 				let is_saved = false;
 
@@ -296,7 +283,6 @@ export class WpProvider {
 					image: img,
 					date: data.date,
 					link: data.link,
-					app_link: app_link,
 					is_saved: is_saved
 				};
 
