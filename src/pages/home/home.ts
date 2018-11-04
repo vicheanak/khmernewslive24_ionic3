@@ -91,20 +91,20 @@ export class HomePage {
 				}
 			}).catch((err) => {
 				this.report.sendPostRequest({
-					'subject' : 'Error! - Error Home Page save()',
-					'type' : '',
-					'crawl_link' : '',
-					'post_link' : '',
-					'title' : '',
-					'content' : '',
-					'iframe' : '',
-					'app_link' : '',
-					'notification' : '',
-					'featured_image' : '',
-					'detail_message' : JSON.stringify(err),
-				}).then((data) => {
-				
-				});
+		          'subject' : 'Error! - KNL Error Home Page save()',
+		          'type' : '',
+		          'crawl_link' : '',
+		          'post_link' : '',
+		          'title' : '',
+		          'content' : '',
+		          'iframe' : '',
+		          'app_link' : '',
+		          'notification' : '',
+		          'featured_image' : '',
+		          'detail_message' : JSON.stringify(err),
+		        }).then((data) => {
+		        
+		        });
 			});
 		}
 		else{

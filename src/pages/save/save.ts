@@ -21,7 +21,7 @@ import {ReportProvider} from '../../providers/report/report';
 })
 export class SavePage {
 
-	public posts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; app_link: string; is_saved: boolean }> = [];
+	public savedPosts: Array<{  id: number; title: string; category: string; content: string; image: string; date: string; link: string; is_saved: boolean }> = [];
 
 	public isReady: boolean = false;
 
@@ -39,32 +39,7 @@ export class SavePage {
 		private alertController: AlertController,
 		private report: ReportProvider
 		) {
-		this.posts = [];
-		this.wpProvider.getSavePost().then((posts) => {
-
-			this.posts = posts;
-
-			this.postCount = this.posts.length;
-
-			this.isReady = true;
-			
-		}).catch((err) => {
-			this.report.sendPostRequest({
-				'subject' : 'Error! - Error Save Page Single Post',
-				'type' : '',
-				'crawl_link' : '',
-				'post_link' : '',
-				'title' : '',
-				'content' : '',
-				'iframe' : '',
-				'app_link' : '',
-				'notification' : '',
-				'featured_image' : '',
-				'detail_message' : JSON.stringify(err),
-			}).then((data) => {
-			
-			});
-		});
+		
 	}
 
 	save(post){
@@ -88,7 +63,7 @@ export class SavePage {
 	}
 
 	copy(post){
-		this.clipboard.copy(post.title + ' \n ឥឡូវនេះ ទាញយកកម្មវីធី Khmer News Live ដោយឥតគិតថ្លៃ! ដើម្បីភាពស្រួល និងទទួលពត៌មានថ្មីៗ ក្នុងដៃជាប់ជានិច្ច!' + post.app_link);
+		this.clipboard.copy(post.title + ' \n\n' + post.link);
 		this.toast.show('Copied...', '1500', 'center').subscribe(
 		  toast => {
 		    
@@ -120,15 +95,41 @@ export class SavePage {
     		appName = 'com.apple.social.facebook'
     	}
     	
-    	this.socialSharing.shareViaFacebook(post.title, null, post.app_link).then(() => {
+    	this.socialSharing.shareViaFacebook(post.title, null, post.link).then(() => {
 
     	}).catch((err) => {
 				
     	});
     }
 
-	ionViewDidLoad() {
-		console.log('ionViewDidLoad SavePage');
+	ionViewWillEnter() {
+		this.savedPosts = [];
+		this.postCount = 0;
+		this.wpProvider.getSavePost().then((posts) => {
+
+			this.savedPosts = posts;
+			
+			this.postCount = this.savedPosts.length;
+
+			this.isReady = true;
+			
+		}).catch((err) => {
+			this.report.sendPostRequest({
+				'subject' : 'Error! - Error Save Page Single Post',
+				'type' : '',
+				'crawl_link' : '',
+				'post_link' : '',
+				'title' : '',
+				'content' : '',
+				'iframe' : '',
+				'app_link' : '',
+				'notification' : '',
+				'featured_image' : '',
+				'detail_message' : JSON.stringify(err),
+			}).then((data) => {
+			
+			});
+		});
 	}
 
 }

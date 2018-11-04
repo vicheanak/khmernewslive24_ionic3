@@ -311,16 +311,18 @@ export class WpProvider {
 
 	getSavePost(): Promise<any[]> {
 		
-		this.posts = [];
+		
 
 		return new Promise((resolve, reject) => {
+
 			if (this.storage.length()){
+				this.saved_articles = [];
 				this.storage.forEach( (value, key, index) => {
 					let data = JSON.parse(value);
-					this.posts.push(data);
+					this.saved_articles.push(data);
 				});
 			}	
-			resolve(this.posts);
+			resolve(this.saved_articles);
 		});
 	}
 
