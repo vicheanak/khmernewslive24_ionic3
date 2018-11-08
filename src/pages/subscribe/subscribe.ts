@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController, Platform} from 'i
 import { InAppPurchase } from '@ionic-native/in-app-purchase';
 import { Storage } from '@ionic/storage';
 import {ReportProvider} from '../../providers/report/report';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 /**
  * Generated class for the SubscribePage page.
@@ -26,15 +27,12 @@ export class SubscribePage {
   	private alertController: AlertController,
   	private platform: Platform,
   	private storage: Storage,
-  	private report: ReportProvider) {
+  	private report: ReportProvider,
+  	private iab: InAppBrowser) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SubscribePage');
-    
-    
-
-	
   }
 
 	async presentAlert(msg, subtitle) {
@@ -47,6 +45,10 @@ export class SubscribePage {
 		await alert.present();
 	}		
 
+
+ 	openBrowser(link){
+ 		this.iab.create(link);
+ 	}
 
 
 	async subscribe(){
@@ -71,7 +73,7 @@ export class SubscribePage {
 						.catch((err)=> {
 							
 							this.report.sendPostRequest({
-								'subject' : 'Error! - KNL Subscribe Page subscribe() Failed Subscribe',
+								'subject' : 'Error! - KNLive Subscribe Page subscribe() Failed Subscribe',
 								'type' : '',
 								'crawl_link' : '',
 								'post_link' : '',
@@ -89,7 +91,7 @@ export class SubscribePage {
 					}).catch((err) => {
 						
 						this.report.sendPostRequest({
-							'subject' : 'Error! - KNL Subscribe Page subscribe() No Product',
+							'subject' : 'Error! - KNLive Subscribe Page subscribe() No Product',
 							'type' : '',
 							'crawl_link' : '',
 							'post_link' : '',
@@ -115,7 +117,7 @@ export class SubscribePage {
 					.catch((err)=> {
 						
 						this.report.sendPostRequest({
-							'subject' : 'Error! - KNL Subscribe Page subscribe() No Val Failed Subscribe',
+							'subject' : 'Error! - KNLive Subscribe Page subscribe() No Val Failed Subscribe',
 							'type' : '',
 							'crawl_link' : '',
 							'post_link' : '',
@@ -133,7 +135,7 @@ export class SubscribePage {
 				}).catch((err) => {
 					
 					this.report.sendPostRequest({
-						'subject' : 'Error! - KNL Subscribe Page subscribe() No Val No Product',
+						'subject' : 'Error! - KNLive Subscribe Page subscribe() No Val No Product',
 						'type' : '',
 						'crawl_link' : '',
 						'post_link' : '',

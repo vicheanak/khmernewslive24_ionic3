@@ -14,17 +14,25 @@
 </ion-header>
 <ion-content class="card-background-page">
 
-  <ion-card (click)="subscribe()">
-    <img src="../assets/imgs/subscription.jpg"/>
+  <ion-card>
+    <img (click)="subscribe()" src="../assets/imgs/subscription.jpg"/>
     <ion-card-content>
-	    <ion-card-title>
-	      គុណប្រយោជន៍នៃការជាវ / Benefits of Subscription
-	      </ion-card-title>
-	    <p>
-	      1. មិនមានផ្សាយពានិជកម្ម / No advertisement
-	    </p>
-	    <button color="danger" ion-button round block>Subscribe $1.99/Month</button>
-	  </ion-card-content>
+      <ion-card-title>
+        Information about the auto-renewable nature of the subscription in Khmer News Local:
+        </ion-card-title>
+      
+        <p>• Subscribe $1.99/Month to remove ads</p>
+        <p>• Subscription fee is charged on Monthly bases</p>
+        <p>• Payment will be charged to iTunes Account at confirmation of purchase</p>
+        <p>• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period</p>
+        <p>• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal</p>
+        <p>• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase</p>
+        <p>• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable</p>
+        <p>– Terms of use link: <span style="text-decoration: underline; color: blue" (click)="openBrowser('https://www.khmernewslive24.com/?page_id=41629')"> https://www.khmernewslive24.com/?page_id=41629</span></p>
+        <p>– Privacy policy link: <span style="text-decoration: underline; color: blue" (click)="openBrowser('https://www.khmernewslive24.com/?page_id=3')"> https://www.khmernewslive24.com/?page_id=3</span></p>
+      
+      <button (click)="subscribe()" color="primary" ion-button round block>Subscribe $1.99/Month</button>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>
