@@ -79,6 +79,8 @@
     "cordova-support-google-services": "^1.1.0",
     "es6-promise-plugin": "^4.2.2",
     "firebase": "^5.5.5",
+    "gulp": "^4.0.0",
+    "gulp-cheerio": "^0.6.3",
     "ionic-angular": "3.9.2",
     "ionic-plugin-deeplinks": "^1.0.17",
     "ionicons": "3.0.0",

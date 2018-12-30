@@ -19,6 +19,7 @@ import {ReportProvider} from '../../providers/report/report';
 export class DetailPage {
 
 	public post;
+  private countAds: any = 0;
 
   constructor(
   	private wpProvider: WpProvider, 
@@ -137,13 +138,22 @@ export class DetailPage {
       bannerAd = 'ca-app-pub-3976244179029334/5014130799';
     }
 
-    this.admob.prepareRewardVideoAd({adId: videoAd})
-    .then(() => { 
-      this.admob.showRewardVideoAd(); 
-    });  
+    if (this.countAds == 0){
+          console.log('PRESENT ADS');
+          setTimeout(() => {
+            this.admob.prepareRewardVideoAd({adId: videoAd})
+            .then(() => { 
+              this.admob.showRewardVideoAd(); 
+            });  
+          }, 1000);
+        this.countAds ++;
+      }else if (this.countAds > 0){
+        this.countAds ++;
+      }
+      if (this.countAds == 3){
+        this.countAds = 0;
+      }
     
-    this.admob.createBanner({adId: bannerAd})
-    .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
   }
 
   ionViewWillEnter(){
