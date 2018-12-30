@@ -36,7 +36,7 @@ export class MyApp {
 
   rootPage: any;
   
-
+  private countAds: any = 0;
 
   pages: Array<{title: string, component: any, categoryId: number}>;
 
@@ -201,38 +201,7 @@ export class MyApp {
         this.presentAlert('Error Token FCM', err);
       }
 
-      // this.branch.initSession().then(data => {
-      //   if (data['+clicked_branch_link']) {
-          
-          
-      //     let url = data['$canonical_url'];
-      //     if (url){
-      //       url = url.split('p=');
-      //       let id = url[1];
-      //       this.nav.setRoot(DetailPage, {
-      //         id: id
-      //       });
-      //     }
-          
-          
-      //   }
-      // }).then((err) => {
-      //   this.report.sendPostRequest({
-      //     'subject' : 'Error! - KNLocal Resume branch resume()',
-      //     'type' : '',
-      //     'crawl_link' : '',
-      //     'post_link' : '',
-      //     'title' : '',
-      //     'content' : '',
-      //     'iframe' : '',
-      //     'app_link' : '',
-      //     'notification' : '',
-      //     'featured_image' : '',
-      //     'detail_message' : JSON.stringify(err),
-      //   }).then((data) => {
-        
-      //   });
-      // });
+     
     });
 
 
@@ -256,18 +225,24 @@ export class MyApp {
       bannerAd = 'ca-app-pub-3976244179029334/5014130799';
     }
 
-
-    setTimeout(() => {
-      this.admob.prepareRewardVideoAd({adId: videoAd})
-      .then(() => { 
-        this.admob.showRewardVideoAd(); 
-      });  
-    }, 30000);
+    if (this.countAds == 0){
+          console.log('PRESENT ADS');
+          setTimeout(() => {
+            this.admob.prepareRewardVideoAd({adId: videoAd})
+            .then(() => { 
+              this.admob.showRewardVideoAd(); 
+            });  
+          }, 1000);
+        this.countAds ++;
+      }else if (this.countAds > 0){
+        this.countAds ++;
+      }
+      if (this.countAds == 5){
+        this.countAds = 0;
+      }
     
-    
-
     this.admob.createBanner({adId: bannerAd})
-    .then(() => {this.admob.showBanner(this.admob.AD_POSITION.BOTTOM_CENTER)});
+    .then(() => {this.admob.showBanner(this.admob.AD_POSITION.TOP_CENTER)});
   }
 
  

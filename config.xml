@@ -21,6 +21,13 @@
     <preference name="SplashScreenDelay" value="3000" />
     <preference name="YouTubeDataApiKey" value="AIzaSyBcWMv1cH7KYB-yYXFZ3C6T7zBpxyXtsSA" />
     <platform name="android">
+        <hook src="hooks/patch-android-studio-check.js" type="before_plugin_install" />
+        <hook src="hooks/patch-android-studio-check.js" type="before_plugin_add" />
+        <hook src="hooks/patch-android-studio-check.js" type="before_build" />
+        <hook src="hooks/patch-android-studio-check.js" type="before_run" />
+        <hook src="hooks/patch-android-studio-check.js" type="before_plugin_rm" />
+        <resource-file src="platforms/android/app/src/main/AndroidManifest.xml" target="AndroidManifest.xml" />
+        <resource-file src="google-services.json" target="app/src/main/google-services.json" />
         <resource-file src="google-services.json" target="app/google-services.json" />
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -120,6 +127,7 @@
     <plugin name="cordova-plugin-youtube-video-player" spec="2.0.0" />
     <plugin name="cordova-plugin-inapppurchase-fixed" spec="1.1.2" />
     <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
-    <engine name="android" spec="7.1.1" />
+    <plugin name="cordova-plugin-multidex" spec="^0.1.4" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="^7.1.4" />
 </widget>
